@@ -54,6 +54,7 @@ import { MobileContactBar } from './components/MobileResponsive'
 import SuperAdminDashboard from './pages/SuperAdmin/Dashboard'
 import AdminManagement from './pages/SuperAdmin/AdminManagement'
 import TenantRegistry from './pages/SuperAdmin/TenantRegistry'
+import TenantProvisioning from './pages/SuperAdmin/TenantProvisioning'
 import Unauthorized from './pages/Unauthorized'
 
 function App() {
@@ -389,6 +390,11 @@ function App() {
               <Route path="/super-admin/tenants" element={
                 <ProtectedRoute requiredPermission="manage_organizations">
                   <TenantRegistry />
+                </ProtectedRoute>
+              } />
+              <Route path="/super-admin/tenants/new" element={
+                <ProtectedRoute requiredPermission="manage_organizations">
+                  <TenantProvisioning />
                 </ProtectedRoute>
               } />
 
