@@ -51,6 +51,10 @@ import FieldWorkerApp from './components/FieldWorkerApp'
 import CompetitorTracking from './components/CompetitorTracking'
 import RegionalMap from './pages/RegionalMap'
 import { MobileContactBar } from './components/MobileResponsive'
+import SuperAdminDashboard from './pages/SuperAdmin/Dashboard'
+import AdminManagement from './pages/SuperAdmin/AdminManagement'
+import TenantRegistry from './pages/SuperAdmin/TenantRegistry'
+import Unauthorized from './pages/Unauthorized'
 
 function App() {
   return (
@@ -370,6 +374,26 @@ function App() {
               {/* Admin Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin/demo-requests" element={<AdminDashboard />} />
+
+              {/* Super Admin Routes */}
+              <Route path="/super-admin/dashboard" element={
+                <ProtectedRoute requiredPermission="manage_organizations">
+                  <SuperAdminDashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/super-admin/admins" element={
+                <ProtectedRoute requiredPermission="manage_organizations">
+                  <AdminManagement />
+                </ProtectedRoute>
+              } />
+              <Route path="/super-admin/tenants" element={
+                <ProtectedRoute requiredPermission="manage_organizations">
+                  <TenantRegistry />
+                </ProtectedRoute>
+              } />
+
+              {/* Unauthorized Page */}
+              <Route path="/unauthorized" element={<Unauthorized />} />
               </Routes>
               <MobileContactBar />
             </ErrorBoundary>
