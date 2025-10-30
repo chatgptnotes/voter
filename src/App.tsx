@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import { RealTimeProvider } from './contexts/RealTimeContext'
 import { AuthProvider } from './contexts/AuthContext'
 import { PermissionProvider } from './contexts/PermissionContext'
+import { OnboardingProvider } from './contexts/OnboardingContext'
 import ErrorBoundary from './components/ErrorBoundary'
 import Layout from './components/Layout'
 import LandingLayout from './components/LandingLayout'
@@ -55,16 +56,23 @@ import SuperAdminDashboard from './pages/SuperAdmin/Dashboard'
 import AdminManagement from './pages/SuperAdmin/AdminManagement'
 import TenantRegistry from './pages/SuperAdmin/TenantRegistry'
 import TenantProvisioning from './pages/SuperAdmin/TenantProvisioning'
+import BillingDashboard from './pages/SuperAdmin/BillingDashboard'
+import OrganizationDashboard from './pages/Admin/OrganizationDashboard'
+import TenantManagement from './pages/Admin/TenantManagement'
+import UserManagement from './pages/Admin/UserManagement'
+import AuditLogViewer from './pages/Admin/AuditLogViewer'
 import Unauthorized from './pages/Unauthorized'
+import AnalyticsDashboard from './pages/AnalyticsDashboard'
 
 function App() {
   return (
     <ErrorBoundary>
       <AuthProvider>
         <PermissionProvider>
-          <RealTimeProvider>
-            <ErrorBoundary>
-              <Routes>
+          <OnboardingProvider>
+            <RealTimeProvider>
+              <ErrorBoundary>
+                <Routes>
               {/* Landing Page with minimal layout */}
               <Route path="/" element={
                 <LandingLayout>
@@ -371,10 +379,37 @@ function App() {
                   </Layout>
                 </ProtectedRoute>
               } />
+              <Route path="/analytics-dashboard" element={
+                <ProtectedRoute>
+                  <Layout>
+                    <AnalyticsDashboard />
+                  </Layout>
+                </ProtectedRoute>
+              } />
 
               {/* Admin Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin/demo-requests" element={<AdminDashboard />} />
+              <Route path="/admin/dashboard" element={
+                <ProtectedRoute requiredPermission="manage_tenants">
+                  <OrganizationDashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/tenants" element={
+                <ProtectedRoute requiredPermission="manage_tenants">
+                  <TenantManagement />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/users" element={
+                <ProtectedRoute requiredPermission="manage_users">
+                  <UserManagement />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/audit-logs" element={
+                <ProtectedRoute requiredPermission="view_audit_logs">
+                  <AuditLogViewer />
+                </ProtectedRoute>
+              } />
 
               {/* Super Admin Routes */}
               <Route path="/super-admin/dashboard" element={
@@ -397,13 +432,19 @@ function App() {
                   <TenantProvisioning />
                 </ProtectedRoute>
               } />
+              <Route path="/super-admin/billing" element={
+                <ProtectedRoute requiredPermission="manage_organizations">
+                  <BillingDashboard />
+                </ProtectedRoute>
+              } />
 
               {/* Unauthorized Page */}
               <Route path="/unauthorized" element={<Unauthorized />} />
-              </Routes>
-              <MobileContactBar />
-            </ErrorBoundary>
-          </RealTimeProvider>
+                </Routes>
+                <MobileContactBar />
+              </ErrorBoundary>
+            </RealTimeProvider>
+          </OnboardingProvider>
         </PermissionProvider>
       </AuthProvider>
     </ErrorBoundary>

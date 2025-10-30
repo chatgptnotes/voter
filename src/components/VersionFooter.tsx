@@ -6,7 +6,7 @@ interface VersionFooterProps {
 
 export function VersionFooter({ className = '' }: VersionFooterProps) {
   // Version will be auto-incremented with each git push
-  const version = '1.1';
+  const version = '1.2';
   const lastUpdated = '2025-10-29';
 
   return (
