@@ -1,41 +1,39 @@
 import React from 'react';
-import { Activity, Zap, BarChart3 } from 'lucide-react';
 
 interface LogoProps {
   size?: 'small' | 'medium' | 'large';
   variant?: 'horizontal' | 'stacked' | 'icon-only';
   showTagline?: boolean;
   className?: string;
+  theme?: 'light' | 'dark';
 }
 
-export default function Logo({ 
-  size = 'medium', 
-  variant = 'horizontal', 
+export default function Logo({
+  size = 'medium',
+  variant = 'horizontal',
   showTagline = false,
-  className = '' 
+  className = '',
+  theme = 'light'
 }: LogoProps) {
-  
+
   const getSizeClasses = () => {
     switch (size) {
       case 'small':
         return {
-          icon: 'w-6 h-6',
-          mainText: 'text-xl',
-          subText: 'text-xs',
+          width: 120,
+          height: 40,
           tagline: 'text-xs'
         };
       case 'large':
         return {
-          icon: 'w-12 h-12',
-          mainText: 'text-4xl',
-          subText: 'text-lg',
+          width: 240,
+          height: 80,
           tagline: 'text-sm'
         };
       default: // medium
         return {
-          icon: 'w-8 h-8',
-          mainText: 'text-2xl',
-          subText: 'text-sm',
+          width: 180,
+          height: 60,
           tagline: 'text-xs'
         };
     }
@@ -43,14 +41,22 @@ export default function Logo({
 
   const sizeClasses = getSizeClasses();
 
+  // For icon-only variant, show a smaller version
   if (variant === 'icon-only') {
     return (
       <div className={`inline-flex items-center justify-center ${className}`}>
-        <div className="relative">
-          <Activity className={`${sizeClasses.icon} text-purple-600`} />
-          <div className="absolute -bottom-1 -right-1">
-            <div className="w-3 h-3 bg-blue-600 rounded-full animate-pulse"></div>
-          </div>
+        <img
+          src="/assets/images/logo.png"
+          alt="POP"
+          className="h-10 w-auto"
+          onError={(e) => {
+            // Fallback to text if image not found
+            e.currentTarget.style.display = 'none';
+            e.currentTarget.nextElementSibling?.classList.remove('hidden');
+          }}
+        />
+        <div className="hidden text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          POP
         </div>
       </div>
     );
@@ -59,24 +65,28 @@ export default function Logo({
   if (variant === 'stacked') {
     return (
       <div className={`text-center ${className}`}>
-        <div className="flex items-center justify-center mb-2">
-          <div className="relative mr-3">
-            <Activity className={`${sizeClasses.icon} text-purple-600`} />
-            <div className="absolute -bottom-1 -right-1">
-              <div className="w-3 h-3 bg-blue-600 rounded-full animate-pulse"></div>
-            </div>
+        <img
+          src="/assets/images/logo.png"
+          alt="Pulse of People"
+          style={{ width: sizeClasses.width, height: 'auto' }}
+          className="mx-auto"
+          onError={(e) => {
+            // Fallback to text if image not found
+            e.currentTarget.style.display = 'none';
+            e.currentTarget.nextElementSibling?.classList.remove('hidden');
+          }}
+        />
+        <div className="hidden">
+          <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-2">
+            P•O•P
           </div>
-          <Zap className={`${sizeClasses.icon} text-blue-600`} />
-        </div>
-        <div className={`${sizeClasses.mainText} font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent`}>
-          Pulse of People
-        </div>
-        <div className={`${sizeClasses.subText} text-gray-600 font-medium`}>
-          by BETTROI
+          <div className="text-gray-600 font-medium">
+            pulse of people
+          </div>
         </div>
         {showTagline && (
-          <div className={`${sizeClasses.tagline} text-gray-500 mt-1`}>
-            Animal-i Initiative
+          <div className={`${sizeClasses.tagline} text-gray-500 mt-2`}>
+            by BETTROI • Animal-i Initiative
           </div>
         )}
       </div>
@@ -85,36 +95,34 @@ export default function Logo({
 
   // Horizontal variant (default)
   return (
-    <div className={`flex items-center space-x-3 ${className}`}>
-      {/* Animated Icon Group */}
-      <div className="flex items-center space-x-1">
-        <div className="relative">
-          <Activity className={`${sizeClasses.icon} text-purple-600`} />
-          <div className="absolute -bottom-1 -right-1">
-            <div className="w-3 h-3 bg-blue-600 rounded-full animate-pulse"></div>
-          </div>
+    <div className={`flex items-center ${className}`}>
+      <img
+        src="/assets/images/logo.png"
+        alt="Pulse of People"
+        style={{ height: sizeClasses.height, width: 'auto' }}
+        onError={(e) => {
+          // Fallback to text version if image not found
+          e.currentTarget.style.display = 'none';
+          e.currentTarget.nextElementSibling?.classList.remove('hidden');
+        }}
+      />
+      {/* Fallback text version */}
+      <div className="hidden flex items-center space-x-3">
+        <div className="flex items-center">
+          <span className="text-3xl font-bold text-purple-600">P</span>
+          <span className="text-2xl text-purple-600 mx-1">•</span>
+          <span className="text-3xl font-bold text-purple-600">O</span>
+          <span className="text-2xl text-purple-600 mx-1">•</span>
+          <span className="text-3xl font-bold text-blue-600">P</span>
         </div>
-        <Zap className={`${sizeClasses.icon.replace('w-', 'w-').replace('h-', 'h-')} text-blue-600`} style={{
-          width: size === 'small' ? '20px' : size === 'large' ? '40px' : '28px',
-          height: size === 'small' ? '20px' : size === 'large' ? '40px' : '28px'
-        }} />
-      </div>
-
-      {/* Text Content */}
-      <div>
-        <div className="flex items-baseline space-x-2">
-          <span className={`${sizeClasses.mainText} font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent`}>
-            Pulse of People
-          </span>
-          <span className={`${sizeClasses.subText} text-gray-600 font-medium`}>
-            by BETTROI
-          </span>
+        <div className="border-l-2 border-gray-300 pl-3">
+          <div className="text-gray-600 text-sm font-medium">pulse of people</div>
+          {showTagline && (
+            <div className={`${sizeClasses.tagline} text-gray-500`}>
+              by BETTROI
+            </div>
+          )}
         </div>
-        {showTagline && (
-          <div className={`${sizeClasses.tagline} text-gray-500`}>
-            Animal-i Initiative • Global HQ: Dubai
-          </div>
-        )}
       </div>
     </div>
   );
@@ -135,13 +143,22 @@ export const PulseLogoIcon = (props: Omit<LogoProps, 'variant'>) => (
 
 // Simplified logo for mobile/small spaces
 export const PulseLogoCompact = ({ className = '' }: { className?: string }) => (
-  <div className={`flex items-center space-x-2 ${className}`}>
-    <Activity className="w-5 h-5 text-purple-600" />
-    <div>
-      <span className="text-sm font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-        Pulse
+  <div className={`flex items-center ${className}`}>
+    <img
+      src="/assets/images/logo.png"
+      alt="POP"
+      className="h-8 w-auto"
+      onError={(e) => {
+        // Fallback to text if image not found
+        e.currentTarget.style.display = 'none';
+        e.currentTarget.nextElementSibling?.classList.remove('hidden');
+      }}
+    />
+    <div className="hidden flex items-center space-x-2">
+      <span className="text-lg font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+        POP
       </span>
-      <span className="text-xs text-gray-600 ml-1">by BETTROI</span>
+      <span className="text-xs text-gray-600">by BETTROI</span>
     </div>
   </div>
 );

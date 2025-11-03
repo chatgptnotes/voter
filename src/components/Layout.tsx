@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { BarChart3, AlertCircle, FileText, Settings, Menu, X, Home, PieChart, LogOut, User, ToggleLeft, Vote, Users, Briefcase, Share2, Target, Brain, Newspaper, Tv, MessageCircle, Crown, Bot, Shield, Zap, Phone, Activity, Database, UserCheck, Lightbulb, Search, TrendingUp, Eye, Download, Smartphone, MapPin } from 'lucide-react'
+import { AlertCircle, FileText, Settings, Menu, X, Home, PieChart, LogOut, User, ToggleLeft, Vote, Users, Briefcase, Share2, Target, Brain, Newspaper, Tv, MessageCircle, Crown, Bot, Shield, Zap, Phone, Activity, Database, UserCheck, Lightbulb, Search, TrendingUp, Eye, Download, Smartphone, MapPin } from 'lucide-react'
 import RealTimeIndicator from './RealTimeIndicator'
 import LoginModal from './LoginModal'
 import { useAuth } from '../contexts/AuthContext'
+import Logo from './Logo'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -99,11 +100,7 @@ export default function Layout({ children }: LayoutProps) {
           
           <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
             <div className="flex-shrink-0 flex items-center px-4">
-              <BarChart3 className="w-8 h-8 text-blue-600" />
-              <div className="ml-2">
-                <h1 className="text-xl font-bold text-gray-900">BETTROI</h1>
-                <p className="text-xs text-gray-500">Voter Sentiment Dashboard</p>
-              </div>
+              <Logo size="small" variant="horizontal" />
             </div>
             <nav className="mt-5 px-2 space-y-1">
               {navigation.map((item) => (
@@ -130,11 +127,7 @@ export default function Layout({ children }: LayoutProps) {
         <div className="flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white">
           <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
             <div className="flex items-center flex-shrink-0 px-4">
-              <BarChart3 className="w-8 h-8 text-blue-600" />
-              <div className="ml-2">
-                <h1 className="text-xl font-bold text-gray-900">BETTROI</h1>
-                <p className="text-xs text-gray-500">Voter Sentiment Dashboard</p>
-              </div>
+              <Logo size="medium" variant="horizontal" />
             </div>
             <nav className="mt-5 flex-1 px-2 bg-white space-y-1">
               {navigation.map((item) => (

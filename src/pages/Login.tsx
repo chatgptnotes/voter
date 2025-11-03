@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Eye, EyeOff, Lock, Mail, Shield, User, ArrowLeft } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, User, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import Logo from '../components/Logo';
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(true);
@@ -21,22 +22,37 @@ export default function Login() {
 
     try {
       if (isLogin) {
-        // Login flow using AuthContext
-        const success = await login(credentials.email, credentials.password);
+        console.log('Login form submitted for:', credentials.email);
+
+        // Add a timeout to prevent infinite loading
+        const loginTimeout = new Promise<boolean>((resolve) => {
+          setTimeout(() => {
+            console.warn('Login timeout reached');
+            resolve(false);
+          }, 10000); // 10 second timeout
+        });
+
+        // Race between login and timeout
+        const success = await Promise.race([
+          login(credentials.email, credentials.password),
+          loginTimeout
+        ]);
 
         if (success) {
+          console.log('Login successful, navigating to dashboard...');
           // Store auth token for ProtectedRoute
           localStorage.setItem('auth_token', 'authenticated');
           navigate('/dashboard');
         } else {
-          setError('Invalid email or password. Try: admin@bettroi.com / password');
+          setError('Invalid email or password. Please check your credentials.');
         }
       } else {
         // Sign up flow (for demo, just redirect to login)
-        setError('Sign up functionality coming soon. Please use demo credentials to login.');
+        setError('Sign up functionality coming soon. Please use existing credentials to login.');
         setIsLogin(true);
       }
     } catch (err) {
+      console.error('Login error:', err);
       setError('An error occurred during authentication');
     }
   };
@@ -58,9 +74,9 @@ export default function Login() {
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20 p-8">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="flex items-center justify-center mb-4">
-              <div className="bg-gradient-to-r from-blue-400 to-purple-400 p-3 rounded-xl">
-                <Shield className="w-8 h-8 text-white" />
+            <div className="flex items-center justify-center mb-6">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                <Logo size="medium" variant="stacked" />
               </div>
             </div>
             <h1 className="text-2xl font-bold text-white mb-2">

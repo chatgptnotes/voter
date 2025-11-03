@@ -21,6 +21,7 @@ import {
 } from '@mui/icons-material';
 import { useAuth } from '../contexts/AuthContext';
 import { usePermission } from '../hooks/usePermission';
+import Logo from './Logo';
 
 interface MenuItem {
   name: string;
@@ -174,11 +175,11 @@ export function EnhancedNavigation() {
         <div className="flex items-center">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="text-gray-600 hover:text-gray-900"
+            className="text-gray-600 hover:text-gray-900 mr-3"
           >
             {sidebarOpen ? <CloseIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
           </button>
-          <h1 className="ml-3 text-lg font-bold text-gray-900">Pulse of People</h1>
+          <Logo size="small" variant="horizontal" />
         </div>
         {user && (
           <div className="text-sm text-gray-600">{user.name || user.email}</div>
@@ -192,8 +193,8 @@ export function EnhancedNavigation() {
         md:translate-x-0
       `}>
         {/* Logo */}
-        <div className="h-16 flex items-center px-6 border-b border-gray-200">
-          <h1 className="text-xl font-bold text-gray-900">Pulse of People</h1>
+        <div className="h-16 flex items-center px-4 border-b border-gray-200">
+          <Logo size="medium" variant="horizontal" />
         </div>
 
         {/* User Info & Tenant Switcher */}
