@@ -1,19 +1,23 @@
 /**
  * Tenant Configuration Loader
- * Fetches and caches tenant configuration from the registry
+ * Fetches and caches tenant configuration from local Supabase database
  */
 
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { TenantConfig } from './types';
-import { getTenantRegistryUrl } from './identification';
 
 // Cache for tenant configurations
 const tenantConfigCache = new Map<string, TenantConfig>();
 const cacheExpiry = new Map<string, number>();
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
+// Get Supabase client
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabase = supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;
+
 /**
- * Fetch tenant configuration from registry
+ * Fetch tenant configuration from local Supabase database
  */
 export async function fetchTenantConfig(tenantSlug: string): Promise<TenantConfig | null> {
   // Check cache first
@@ -25,18 +29,46 @@ export async function fetchTenantConfig(tenantSlug: string): Promise<TenantConfi
   }
 
   try {
-    // Fetch from tenant registry
-    const registryUrl = getTenantRegistryUrl();
-    const response = await fetch(`${registryUrl}/api/tenants/${tenantSlug}`);
-
-    if (!response.ok) {
-      if (response.status === 404) {
-        throw new Error(`Tenant '${tenantSlug}' not found`);
-      }
-      throw new Error(`Failed to fetch tenant config: ${response.statusText}`);
+    // If no Supabase client, return mock config for development
+    if (!supabase) {
+      console.warn('Supabase not configured, using mock tenant config');
+      return getMockTenantConfig(tenantSlug);
     }
 
-    const config: TenantConfig = await response.json();
+    // Fetch from local Supabase database
+    const { data, error } = await supabase
+      .from('tenants')
+      .select('*')
+      .eq('subdomain', tenantSlug)
+      .single();
+
+    if (error) {
+      if (error.code === 'PGRST116') {
+        throw new Error(`Tenant '${tenantSlug}' not found`);
+      }
+      throw new Error(`Failed to fetch tenant config: ${error.message}`);
+    }
+
+    if (!data) {
+      throw new Error(`Tenant '${tenantSlug}' not found`);
+    }
+
+    // Transform database record to TenantConfig format
+    const config: TenantConfig = {
+      id: data.id,
+      slug: data.slug,
+      name: data.name,
+      displayName: data.display_name,
+      subdomain: data.subdomain,
+      customDomain: data.custom_domain,
+      status: data.status,
+      subscriptionStatus: data.subscription_status,
+      subscriptionTier: data.subscription_tier,
+      branding: data.branding || {},
+      features: data.features || {},
+      config: data.config || {},
+      metadata: data.metadata || {}
+    };
 
     // Validate tenant is active
     if (config.status !== 'active') {
@@ -97,23 +129,104 @@ export async function preloadTenantConfigs(tenantSlugs: string[]): Promise<void>
 }
 
 /**
- * Create Supabase client for a specific tenant
+ * Get mock tenant configuration for development
+ */
+function getMockTenantConfig(tenantSlug: string): TenantConfig {
+  const configs: Record<string, TenantConfig> = {
+    'party-a': {
+      id: 'mock-party-a',
+      slug: 'tvk-tamil-nadu',
+      name: 'TVK Tamil Nadu Campaign 2026',
+      displayName: 'TVK - Tamilaga Vettri Kazhagam',
+      subdomain: 'party-a',
+      customDomain: null,
+      status: 'active',
+      subscriptionStatus: 'active',
+      subscriptionTier: 'premium',
+      branding: {
+        primaryColor: '#dc2626',
+        secondaryColor: '#fbbf24',
+        logo: '/assets/images/tvk-logo.png',
+        theme: 'red-yellow',
+        heroTitle: 'TVK - Building Progressive Tamil Nadu',
+        motto: 'Pirappokkum Ella Uyirkkum - All Lives are Equal by Birth'
+      },
+      features: {
+        analytics: true,
+        surveys: true,
+        fieldReports: true,
+        socialMedia: true,
+        volunteerManagement: true,
+        boothManagement: true,
+        digitalCampaigning: true
+      },
+      config: {
+        state: 'Tamil Nadu',
+        districts: ['Chennai', 'Coimbatore', 'Madurai', 'Tiruchirappalli', 'Salem', 'Tirunelveli', 'Erode', 'Vellore', 'Thoothukudi', 'Thanjavur'],
+        partySymbol: 'rising-sun',
+        electionYear: '2026'
+      },
+      metadata: {
+        partyAffiliation: 'TVK',
+        regionalParty: true,
+        founded: '2024-02-02',
+        leader: 'Vijay'
+      }
+    },
+    'party-b': {
+      id: 'mock-party-b',
+      slug: 'bjp-kerala',
+      name: 'BJP Kerala Campaign 2026',
+      displayName: 'BJP Kerala',
+      subdomain: 'party-b',
+      customDomain: null,
+      status: 'active',
+      subscriptionStatus: 'active',
+      subscriptionTier: 'premium',
+      branding: {
+        primaryColor: '#FF9933',
+        secondaryColor: '#FF6B00',
+        logo: '/assets/images/bjp-logo.png',
+        theme: 'saffron',
+        heroTitle: 'BJP Kerala - Building a Stronger Tomorrow',
+        motto: 'Sabka Saath, Sabka Vikas, Sabka Vishwas, Sabka Prayas'
+      },
+      features: {
+        analytics: true,
+        surveys: true,
+        fieldReports: true,
+        socialMedia: true,
+        boothManagement: true,
+        digitalCampaigning: true
+      },
+      config: {
+        state: 'Kerala',
+        districts: ['Thiruvananthapuram', 'Kollam', 'Pathanamthitta', 'Alappuzha', 'Kottayam', 'Idukki', 'Ernakulam', 'Thrissur', 'Palakkad', 'Malappuram', 'Kozhikode', 'Wayanad', 'Kannur', 'Kasaragod'],
+        partySymbol: 'lotus',
+        electionYear: '2026'
+      },
+      metadata: {
+        partyAffiliation: 'BJP',
+        nationalParty: true,
+        founded: '1980-04-06'
+      }
+    }
+  };
+
+  return configs[tenantSlug] || null;
+}
+
+/**
+ * Create Supabase client for tenant (uses shared database)
  */
 export function createTenantSupabaseClient(config: TenantConfig): SupabaseClient {
-  return createClient(config.supabaseUrl, config.supabaseAnonKey, {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-    },
-    db: {
-      schema: 'public',
-    },
-    global: {
-      headers: {
-        'X-Tenant-ID': config.slug,
-      },
-    },
-  });
+  // Use the shared Supabase instance with tenant context
+  if (!supabase) {
+    throw new Error('Supabase client not initialized');
+  }
+
+  // Return the shared client - RLS policies will handle tenant isolation
+  return supabase;
 }
 
 /**
@@ -123,24 +236,22 @@ let currentTenantClient: SupabaseClient | null = null;
 let currentTenantSlug: string | null = null;
 
 export async function getTenantSupabaseClient(tenantSlug: string): Promise<SupabaseClient> {
-  // Return cached client if for same tenant
-  if (currentTenantSlug === tenantSlug && currentTenantClient) {
-    return currentTenantClient;
+  // In single-database mode, always return the shared client
+  if (!supabase) {
+    throw new Error('Supabase client not initialized');
   }
-
-  // Load config and create new client
-  const config = await loadTenantConfig(tenantSlug);
-  currentTenantClient = createTenantSupabaseClient(config);
-  currentTenantSlug = tenantSlug;
-
-  return currentTenantClient;
+  return supabase;
 }
 
 /**
  * Check if feature is enabled for tenant
  */
 export function isFeatureEnabled(config: TenantConfig, feature: string): boolean {
-  return config.enabledFeatures.includes(feature);
+  // Check in features object
+  if (config.features && typeof config.features === 'object') {
+    return config.features[feature] === true;
+  }
+  return false;
 }
 
 /**

@@ -154,7 +154,7 @@ export default function LandingPage() {
             
             {/* Hero Subtitle */}
             <p className="text-xl lg:text-2xl text-gray-200 max-w-4xl mx-auto mb-10 leading-relaxed">
-              Pulse of People by BETTROI combines real-time voter sentiment analysis, AI-powered campaign insights, 
+              Pulse of People combines real-time voter sentiment analysis, AI-powered campaign insights, 
               and comprehensive political intelligence to help you make informed decisions and win elections.
             </p>
             
@@ -237,7 +237,7 @@ export default function LandingPage() {
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               From voter sentiment analysis to field operations management, 
-              BETTROI provides all the tools modern political campaigns need.
+              Pulse of People provides all the tools modern political campaigns need.
             </p>
           </div>
           
@@ -371,7 +371,7 @@ export default function LandingPage() {
                   <Zap className="w-8 h-8 text-purple-400" />
                   <div>
                     <div className="text-2xl font-bold">Pulse of People</div>
-                    <div className="text-sm text-gray-400">by BETTROI</div>
+                    {/* <div className="text-sm text-gray-400">by BETTROI</div> */}
                   </div>
                 </div>
               </div>

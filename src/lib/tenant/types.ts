@@ -9,61 +9,37 @@ export interface TenantConfig {
   name: string;
   displayName: string;
 
-  // Supabase connection
-  supabaseUrl: string;
-  supabaseAnonKey: string;
-  supabaseRegion: string;
-
-  // Contact info
-  contactName: string;
-  contactEmail: string;
-  contactPhone?: string;
-  organizationName?: string;
+  // Domain routing
+  subdomain: string;
+  customDomain?: string | null;
 
   // Subscription
-  subscriptionStatus: 'trial' | 'active' | 'suspended' | 'cancelled' | 'expired';
-  subscriptionTier: 'basic' | 'standard' | 'premium' | 'enterprise';
-  subscriptionStart: string;
-  subscriptionEnd?: string;
-  trialEndDate?: string;
-
-  // Billing
-  monthlyFee: number;
-  currency: string;
-  billingCycle: 'monthly' | 'quarterly' | 'yearly';
-  paymentStatus: 'pending' | 'paid' | 'overdue' | 'failed';
-  nextBillingDate?: string;
-
-  // Coverage
-  coverageArea: string;
-  state: string;
-  districts: string[];
-  wardCount: number;
-  expectedUsers: number;
-
-  // Configuration
-  enabledFeatures: string[];
-  customSettings: Record<string, any>;
-  dataResidency: 'india' | 'singapore' | 'us' | 'eu';
-
-  // Branding
-  branding: TenantBranding;
-  customDomain?: string;
-
-  // Limits
-  maxUsers: number;
-  maxWards: number;
-  maxStorageGb: number;
-  maxApiCallsPerHour: number;
+  subscriptionStatus?: 'trial' | 'active' | 'suspended' | 'cancelled' | 'expired';
+  subscriptionTier?: 'basic' | 'standard' | 'premium' | 'enterprise';
 
   // Status
   status: 'active' | 'inactive' | 'suspended' | 'deleted';
-  isDemo: boolean;
+
+  // Branding (simplified)
+  branding?: Record<string, any>;
+
+  // Features (simplified)
+  features?: Record<string, any>;
+
+  // Configuration
+  config?: Record<string, any>;
 
   // Metadata
-  tags: string[];
-  createdAt: string;
-  updatedAt: string;
+  metadata?: Record<string, any>;
+
+  // Legacy fields (kept for compatibility)
+  supabaseUrl?: string;
+  supabaseAnonKey?: string;
+  enabledFeatures?: string[];
+  customSettings?: Record<string, any>;
+  coverageArea?: string;
+  state?: string;
+  districts?: string[];
 }
 
 export interface TenantBranding {

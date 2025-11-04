@@ -1,11 +1,13 @@
 import { Routes, Route } from 'react-router-dom'
 import { RealTimeProvider } from './contexts/RealTimeContext'
 import { AuthProvider } from './contexts/AuthContext'
+import { TenantProvider } from './contexts/TenantContext'
 import { PermissionProvider } from './contexts/PermissionContext'
 import { OnboardingProvider } from './contexts/OnboardingContext'
 import ErrorBoundary from './components/ErrorBoundary'
 import Layout from './components/Layout'
 import LandingLayout from './components/LandingLayout'
+import TenantLandingPage from './pages/TenantLandingPage'
 import Dashboard from './pages/Dashboard'
 import Analytics from './pages/Analytics'
 import Reports from './pages/Reports'
@@ -21,7 +23,6 @@ import FieldWorkers from './pages/FieldWorkers'
 import SocialMedia from './pages/SocialMedia'
 import CompetitorAnalysis from './pages/CompetitorAnalysis'
 import AIInsights from './pages/AIInsights'
-import LandingPage from './pages/LandingPage'
 import Login from './pages/Login'
 import AdminLogin from './pages/AdminLogin'
 import AdminDashboard from './pages/AdminDashboard'
@@ -67,16 +68,17 @@ import AnalyticsDashboard from './pages/AnalyticsDashboard'
 function App() {
   return (
     <ErrorBoundary>
-      <AuthProvider>
-        <PermissionProvider>
-          <OnboardingProvider>
-            <RealTimeProvider>
-              <ErrorBoundary>
-                <Routes>
-              {/* Landing Page with minimal layout */}
+      <TenantProvider>
+        <AuthProvider>
+          <PermissionProvider>
+            <OnboardingProvider>
+              <RealTimeProvider>
+                <ErrorBoundary>
+                  <Routes>
+              {/* Landing Page with minimal layout - Now tenant-aware */}
               <Route path="/" element={
                 <LandingLayout>
-                  <LandingPage />
+                  <TenantLandingPage />
                 </LandingLayout>
               } />
 
@@ -447,6 +449,7 @@ function App() {
           </OnboardingProvider>
         </PermissionProvider>
       </AuthProvider>
+      </TenantProvider>
     </ErrorBoundary>
   )
 }
