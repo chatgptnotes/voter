@@ -1,14 +1,14 @@
 # Claude Code Mission File
 
 ## PROJECT GOAL
-Build a complete multi-tenant SaaS platform for voter sentiment analysis with Super Admin and Admin role hierarchy, enabling platform owners to onboard clients (Admins) who can create and manage multiple tenants (campaigns) with complete data isolation.
+Build a voter sentiment analysis platform with Super Admin and Admin role hierarchy. **Single-tenant mode** - accessible via localhost or main domain (no subdomain routing). All authentication, user roles, and features remain fully functional.
 
 ## TECH STACK & TARGETS
 - **Frontend**: React 18 + TypeScript + Vite + Tailwind CSS
 - **Backend**: Supabase (PostgreSQL + Auth + RLS)
 - **Deployment**: Vercel (Frontend) + Supabase Cloud (Database)
-- **Multi-tenancy**: Single database with Row Level Security (RLS)
-- **Tenant Identification**: Subdomain-based routing (kerala.yourapp.com)
+- **Tenant Mode**: Single-tenant (VITE_MULTI_TENANT=false) - No subdomain routing
+- **Database**: Single database with Row Level Security (RLS) for data isolation
 - **Icons**: Google Material Icons only (no emojis)
 
 ## REPO/ENV
@@ -18,13 +18,13 @@ Build a complete multi-tenant SaaS platform for voter sentiment analysis with Su
 - **Node Version**: >=18.0.0
 
 ## ARCHITECTURE DECISIONS
-1. **Single Database Multi-Tenancy**: All tenants share one Supabase database with RLS policies ensuring complete data isolation
-2. **Three-Tier Role Hierarchy**:
+1. **Single-Tenant Mode**: Multi-tenant subdomain routing disabled (tvk.pulseofpeople.com, bjp.pulseofpeople.com removed)
+2. **Three-Tier Role Hierarchy** (Preserved):
    - Super Admin (Platform Owner) → Creates Admins
-   - Admin (Client Organization Owner) → Creates Tenants
-   - Tenant Users (Project Team) → Manages specific campaigns
-3. **Subdomain Routing**: Each tenant accessible via unique subdomain
-4. **Cost Model**: ₹6,000/month per tenant, ~92% gross margin with single-DB approach
+   - Admin (Client Organization Owner) → Manages organization
+   - Users (Project Team) → Manages campaigns
+3. **Database**: Single Supabase database with RLS policies for data isolation
+4. **Authentication**: Full auth system with role-based access control (RBAC) intact
 
 ## DELIVERABLES IN PROGRESS
 
@@ -103,7 +103,8 @@ VITE_SUPABASE_ANON_KEY=your-anon-key
 VITE_APP_URL=https://yourapp.com
 VITE_APP_NAME=Pulse of People
 
-# Multi-tenancy
+# Multi-tenancy (DISABLED - Single Tenant Mode)
+VITE_MULTI_TENANT=false
 VITE_TENANT_MODE=subdomain
 VITE_DEFAULT_TENANT=demo
 
@@ -174,6 +175,6 @@ psql $DATABASE_URL -f supabase/migrations/20251029_single_db_multi_tenant.sql
 - **Scaling**: RLS queries optimized with proper indexes
 
 ## STATUS
-🟢 **ACTIVE DEVELOPMENT** - Building Super Admin Dashboard
-**Last Updated**: 2025-10-29
-**Progress**: 30% complete (4/8 phases)
+🟢 **ACTIVE DEVELOPMENT** - Single Tenant Mode (Subdomain routing disabled)
+**Last Updated**: 2025-11-06
+**Progress**: Multi-tenant subdomain routing removed. All auth & features preserved.
