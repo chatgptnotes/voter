@@ -9,7 +9,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import tamilNaduGeoJSON from '../../assets/maps/tamilnadu-constituencies.json';
 
 // Get your free API key from: https://account.mapbox.com/access-tokens/
-const MAPBOX_TOKEN = 'pk.eyJ1IjoicHVsc2VvZnBlb3BsZSIsImEiOiJjbGV4YW1wbGUifQ.example'; // Replace with your token
+const MAPBOX_TOKEN = 'pk.eyJ1IjoiYmttdXJhbGkiLCJhIjoiY21ocDhoNXhiMGhodDJrcW94OGptdDg0MiJ9.dq6OU3jiKKntjhIDD9sxWQ';
 
 interface MapboxTamilNaduProps {
   height?: string;
