@@ -32,20 +32,29 @@ export default function Dashboard() {
         await realTimeService.connect();
         crisisDetection.startMonitoring();
         
-        // Update context for recommendations
+        // Update context for recommendations - Tamil Nadu & Puducherry specific
         const context = {
           current_sentiment: {
             overall: 0.67,
             by_issue: {
-              'jobs': 0.45,
-              'infrastructure': 0.55,
-              'health': 0.72,
-              'education': 0.60
+              'water': 0.42, // Critical issue in TN
+              'jobs': 0.48,
+              'agriculture': 0.51,
+              'education': 0.65,
+              'caste_reservation': 0.58,
+              'health': 0.70,
+              'prohibition': 0.55,
+              'tamil_language': 0.73
             },
             by_location: {
-              'Mumbai': 0.68,
-              'Pune': 0.71,
-              'Nashik': 0.52
+              'Chennai': 0.68,
+              'Coimbatore': 0.71,
+              'Madurai': 0.62,
+              'Tiruchirappalli': 0.58,
+              'Salem': 0.65,
+              'Tirunelveli': 0.56,
+              'Tiruppur': 0.69,
+              'Puducherry': 0.64
             },
             trend_direction: 'improving' as const
           },
@@ -56,24 +65,43 @@ export default function Dashboard() {
           competitor_activity: {
             sentiment: 0.45,
             volume: 250,
-            key_messages: ['Development promises', 'Anti-corruption stance']
+            key_messages: [
+              'DMK: Social welfare schemes',
+              'AIADMK: MGR-Amma legacy',
+              'BJP: Development & nationalism',
+              'PMK: Vanniyar reservation',
+              'NTK: Tamil nationalism'
+            ]
           },
           campaign_calendar: {
             upcoming_events: [
               {
                 date: new Date(Date.now() + 86400000 * 3),
                 type: 'rally' as const,
-                location: 'Mumbai',
-                expected_attendance: 5000
+                location: 'Chennai',
+                expected_attendance: 50000
+              },
+              {
+                date: new Date(Date.now() + 86400000 * 7),
+                type: 'rally' as const,
+                location: 'Coimbatore',
+                expected_attendance: 30000
               }
             ],
             recent_activities: []
           },
           resource_availability: {
             budget: 10000000,
-            volunteers: 500,
-            time_to_election: 45,
-            key_demographics: ['Youth', 'Urban professionals', 'Rural voters']
+            volunteers: 5000,
+            time_to_election: 180, // Assuming 6 months to election
+            key_demographics: [
+              'Youth (18-35)',
+              'First-time voters',
+              'OBC/MBC communities',
+              'Urban middle class',
+              'Farmers',
+              'Women voters'
+            ]
           }
         };
         
@@ -132,22 +160,23 @@ export default function Dashboard() {
   }, []);
 
   const kpis = [
-    { label: 'Overall Sentiment', value: liveMetrics?.overallSentiment ? `${liveMetrics.overallSentiment}%` : '67%', change: '+5%', icon: TrendingUp, color: 'text-green-600' },
-    { label: 'Active Conversations', value: liveMetrics?.activeConversations?.toLocaleString() || '12.5K', change: '+15%', icon: Users, color: 'text-blue-600' },
+    { label: 'TVK Overall Sentiment', value: liveMetrics?.overallSentiment ? `${liveMetrics.overallSentiment}%` : '67%', change: '+5%', icon: TrendingUp, color: 'text-green-600' },
+    { label: 'Active Conversations (Tamil)', value: liveMetrics?.activeConversations?.toLocaleString() || '25.3K', change: '+18%', icon: Users, color: 'text-blue-600' },
     { label: 'Critical Alerts', value: activeAlerts.filter(a => a.severity === 'critical').length.toString() || '3', change: '-2', icon: AlertTriangle, color: 'text-red-600' },
-    { label: 'Top Issue', value: trendingTopics[0]?.keyword || 'Jobs', change: '25%', icon: Target, color: 'text-purple-600' },
-    { label: 'Last Updated', value: liveMetrics?.lastUpdate ? new Date(liveMetrics.lastUpdate).toLocaleTimeString() : '2 min', change: 'ago', icon: Calendar, color: 'text-gray-600' }
+    { label: 'Top Issue (TN)', value: trendingTopics[0]?.keyword || 'Water', change: '32%', icon: Target, color: 'text-purple-600' },
+    { label: 'Constituencies Covered', value: '264', change: 'TN+PY', icon: Globe, color: 'text-orange-600' }
   ]
 
-  const indiaMapData = [
-    { id: 'IN-UP', title: 'Uttar Pradesh', value: 68, sentiment: 0.68 },
-    { id: 'IN-MH', title: 'Maharashtra', value: 72, sentiment: 0.72 },
-    { id: 'IN-BR', title: 'Bihar', value: 45, sentiment: 0.45 },
-    { id: 'IN-WB', title: 'West Bengal', value: 61, sentiment: 0.61 },
-    { id: 'IN-MP', title: 'Madhya Pradesh', value: 58, sentiment: 0.58 },
-    { id: 'IN-TN', title: 'Tamil Nadu', value: 74, sentiment: 0.74 },
-    { id: 'IN-RJ', title: 'Rajasthan', value: 52, sentiment: 0.52 },
-    { id: 'IN-KA', title: 'Karnataka', value: 69, sentiment: 0.69 },
+  // Tamil Nadu Districts Map Data (38 districts)
+  const tamilNaduMapData = [
+    { id: 'TN-Chennai', title: 'Chennai', value: 68, sentiment: 0.68, constituencies: 16 },
+    { id: 'TN-Coimbatore', title: 'Coimbatore', value: 71, sentiment: 0.71, constituencies: 10 },
+    { id: 'TN-Madurai', title: 'Madurai', value: 62, sentiment: 0.62, constituencies: 6 },
+    { id: 'TN-Tiruchirappalli', title: 'Tiruchirappalli', value: 58, sentiment: 0.58, constituencies: 6 },
+    { id: 'TN-Salem', title: 'Salem', value: 65, sentiment: 0.65, constituencies: 7 },
+    { id: 'TN-Tirunelveli', title: 'Tirunelveli', value: 56, sentiment: 0.56, constituencies: 6 },
+    { id: 'TN-Tiruppur', title: 'Tiruppur', value: 69, sentiment: 0.69, constituencies: 6 },
+    { id: 'TN-Erode', title: 'Erode', value: 63, sentiment: 0.63, constituencies: 6 },
     { id: 'IN-GJ', title: 'Gujarat', value: 71, sentiment: 0.71 },
     { id: 'IN-AP', title: 'Andhra Pradesh', value: 63, sentiment: 0.63 },
     { id: 'IN-OR', title: 'Odisha', value: 56, sentiment: 0.56 },
@@ -360,7 +389,7 @@ export default function Dashboard() {
           )}
           
           <div className="w-full">
-            <IndiaMap data={indiaMapData} height={400} />
+            <IndiaMap data={tamilNaduMapData} height={400} />
           </div>
 
           <ResponsiveGrid cols={{ sm: 1, lg: 2, xl: 3 }}>

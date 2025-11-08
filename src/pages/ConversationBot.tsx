@@ -271,6 +271,90 @@ const mockConversations: Conversation[] = [
     category: 'feedback',
     aiConfidence: 85,
     humanHandoff: false
+  },
+  {
+    id: '4',
+    userId: 'user_004',
+    userName: 'கார்த்திக் முருகன்',
+    userLocation: 'Chennai',
+    timestamp: new Date(Date.now() - 600000), // 10 minutes ago
+    duration: 540, // 9 minutes
+    language: 'Tamil',
+    channel: 'whatsapp',
+    sentiment: 'positive',
+    sentimentScore: 0.81,
+    topics: ['Prohibition (மதுவிலக்கு)', 'Women Safety', 'TASMAC Closure'],
+    keywords: ['மதுவிலக்கு', 'tasmac', 'women', 'safety', 'prohibition'],
+    issues: ['alcohol-related problems', 'family welfare'],
+    satisfaction: 92,
+    demographic: {
+      age: '25-34',
+      gender: 'Male',
+      occupation: 'IT Professional',
+      education: 'Post Graduate'
+    },
+    politicalLean: 'center',
+    priority: 'high',
+    resolved: true,
+    category: 'political',
+    aiConfidence: 94,
+    humanHandoff: false
+  },
+  {
+    id: '5',
+    userId: 'user_005',
+    userName: 'பிரியா வெங்கடேஷ்',
+    userLocation: 'Coimbatore',
+    timestamp: new Date(Date.now() - 1200000), // 20 minutes ago
+    duration: 360, // 6 minutes
+    language: 'Tamil',
+    channel: 'web',
+    sentiment: 'neutral',
+    sentimentScore: 0.12,
+    topics: ['Cauvery Water (காவிரி நீர்)', 'Farm Irrigation', 'Water Sharing'],
+    keywords: ['காவிரி', 'cauvery', 'water', 'farmers', 'irrigation'],
+    issues: ['water shortage', 'irrigation issues'],
+    satisfaction: 68,
+    demographic: {
+      age: '45-54',
+      gender: 'Female',
+      occupation: 'Farmer',
+      education: 'High School'
+    },
+    politicalLean: 'neutral',
+    priority: 'high',
+    resolved: false,
+    category: 'complaint',
+    aiConfidence: 87,
+    humanHandoff: true
+  },
+  {
+    id: '6',
+    userId: 'user_006',
+    userName: 'விஜய் குமார்',
+    userLocation: 'Madurai',
+    timestamp: new Date(Date.now() - 3600000), // 1 hour ago
+    duration: 720, // 12 minutes
+    language: 'Tamil',
+    channel: 'telegram',
+    sentiment: 'positive',
+    sentimentScore: 0.76,
+    topics: ['TVK Party Support', 'Youth Employment', 'NEET Exam'],
+    keywords: ['tvk', 'vijay', 'jobs', 'neet', 'youth', 'employment'],
+    issues: [],
+    satisfaction: 89,
+    demographic: {
+      age: '18-24',
+      gender: 'Male',
+      occupation: 'Student',
+      education: 'Undergraduate'
+    },
+    politicalLean: 'center',
+    priority: 'medium',
+    resolved: true,
+    category: 'political',
+    aiConfidence: 91,
+    humanHandoff: false
   }
 ];
 
@@ -532,10 +616,10 @@ export default function ConversationBot() {
                     </div>
                     
                     <div className="flex space-x-2">
-                      <MobileButton variant="ghost" size="small">
+                      <MobileButton variant="outline" size="small">
                         <Volume2 className="w-4 h-4" />
                       </MobileButton>
-                      <MobileButton variant="ghost" size="small">
+                      <MobileButton variant="outline" size="small">
                         <Settings className="w-4 h-4" />
                       </MobileButton>
                     </div>
@@ -808,13 +892,13 @@ export default function ConversationBot() {
                         </div>
                         
                         <div className="flex space-x-2">
-                          <MobileButton variant="ghost" size="small">
+                          <MobileButton variant="outline" size="small">
                             <Eye className="w-4 h-4" />
                           </MobileButton>
-                          <MobileButton variant="ghost" size="small">
+                          <MobileButton variant="outline" size="small">
                             <Copy className="w-4 h-4" />
                           </MobileButton>
-                          <MobileButton variant="ghost" size="small">
+                          <MobileButton variant="outline" size="small">
                             <Share2 className="w-4 h-4" />
                           </MobileButton>
                         </div>

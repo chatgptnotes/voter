@@ -30,6 +30,53 @@ export default function VoterDatabase() {
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [showAddVoter, setShowAddVoter] = useState(false);
 
+  // Form state for voter ID validation
+  const [voterIdInput, setVoterIdInput] = useState('');
+  const [voterIdError, setVoterIdError] = useState('');
+  const [voterIdValid, setVoterIdValid] = useState(false);
+
+  // Tamil Nadu Voter ID Validation Function
+  // Format: 3 uppercase letters + 7 digits (e.g., ABC1234567)
+  const validateTNVoterID = (voterId: string): { valid: boolean; error: string } => {
+    // Remove whitespace
+    const cleanId = voterId.trim().toUpperCase();
+
+    // Check if empty
+    if (!cleanId) {
+      return { valid: false, error: 'Voter ID is required' };
+    }
+
+    // Check length (must be exactly 10 characters)
+    if (cleanId.length !== 10) {
+      return { valid: false, error: 'Voter ID must be 10 characters (3 letters + 7 digits)' };
+    }
+
+    // Check format: First 3 characters must be letters
+    const lettersPart = cleanId.substring(0, 3);
+    if (!/^[A-Z]{3}$/.test(lettersPart)) {
+      return { valid: false, error: 'First 3 characters must be uppercase letters (A-Z)' };
+    }
+
+    // Check format: Last 7 characters must be digits
+    const digitsPart = cleanId.substring(3);
+    if (!/^\d{7}$/.test(digitsPart)) {
+      return { valid: false, error: 'Last 7 characters must be digits (0-9)' };
+    }
+
+    return { valid: true, error: '' };
+  };
+
+  // Handle voter ID input change
+  const handleVoterIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.toUpperCase();
+    setVoterIdInput(value);
+
+    // Validate on change
+    const validation = validateTNVoterID(value);
+    setVoterIdValid(validation.valid);
+    setVoterIdError(validation.error);
+  };
+
   // Mock voter database
   const voterDatabase = [
     {
@@ -625,8 +672,50 @@ export default function VoterDatabase() {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Voter ID Card *</label>
-                    <input type="text" className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Tamil Nadu Voter ID Card *
+                      <span className="text-xs text-gray-500 ml-2">(Format: ABC1234567)</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={voterIdInput}
+                        onChange={handleVoterIdChange}
+                        placeholder="ABC1234567"
+                        maxLength={10}
+                        className={`w-full border rounded-lg px-3 py-2 pr-10 focus:outline-none focus:ring-2 ${
+                          voterIdInput.length > 0
+                            ? voterIdValid
+                              ? 'border-green-300 focus:ring-green-500 bg-green-50'
+                              : 'border-red-300 focus:ring-red-500 bg-red-50'
+                            : 'border-gray-200 focus:ring-blue-500'
+                        }`}
+                      />
+                      {voterIdInput.length > 0 && (
+                        <div className="absolute right-3 top-2.5">
+                          {voterIdValid ? (
+                            <CheckCircle className="w-5 h-5 text-green-600" />
+                          ) : (
+                            <AlertCircle className="w-5 h-5 text-red-600" />
+                          )}
+                        </div>
+                      )}
+                    </div>
+                    {voterIdError && voterIdInput.length > 0 && (
+                      <p className="mt-1 text-xs text-red-600 flex items-center">
+                        <AlertCircle className="w-3 h-3 mr-1" />
+                        {voterIdError}
+                      </p>
+                    )}
+                    {voterIdValid && (
+                      <p className="mt-1 text-xs text-green-600 flex items-center">
+                        <CheckCircle className="w-3 h-3 mr-1" />
+                        Valid Tamil Nadu Voter ID
+                      </p>
+                    )}
+                    <p className="mt-1 text-xs text-gray-500">
+                      Tamil Nadu EPIC format: 3 uppercase letters followed by 7 digits
+                    </p>
                   </div>
                   
                   <div>
@@ -646,13 +735,23 @@ export default function VoterDatabase() {
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Caste</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Caste Category</label>
                       <select className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option value="">Select Caste</option>
-                        <option value="General">General</option>
-                        <option value="OBC">OBC</option>
-                        <option value="SC">SC</option>
-                        <option value="ST">ST</option>
+                        <option value="">Select Caste Category</option>
+                        <optgroup label="Tamil Nadu Specific">
+                          <option value="Vanniyar">Vanniyar (MBC)</option>
+                          <option value="Thevar">Thevar (OBC)</option>
+                          <option value="Gounder">Gounder (OBC)</option>
+                          <option value="Nadar">Nadar (OBC)</option>
+                          <option value="Mudaliar">Mudaliar (OBC)</option>
+                        </optgroup>
+                        <optgroup label="General Categories">
+                          <option value="SC">SC (Scheduled Castes)</option>
+                          <option value="ST">ST (Scheduled Tribes)</option>
+                          <option value="OBC">OBC (Other Backward Classes)</option>
+                          <option value="MBC">MBC (Most Backward Classes)</option>
+                          <option value="FC">FC (Forward Castes)</option>
+                        </optgroup>
                       </select>
                     </div>
                     <div>

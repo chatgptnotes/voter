@@ -28,32 +28,46 @@ export default function Reports() {
 
   const reportTypes = [
     {
-      id: 'sentiment',
-      title: 'Sentiment Analysis Report',
-      description: 'Comprehensive analysis of public sentiment across all issues',
+      id: 'constituency',
+      title: 'Constituency-wise Report',
+      description: 'Detailed analysis for all 234 TN constituencies with voter breakdowns',
       icon: BarChart3,
       color: 'bg-blue-50 text-blue-700 border-blue-200'
     },
     {
-      id: 'trends',
-      title: 'Trend Analysis Report', 
-      description: 'Historical trends and patterns in sentiment over time',
+      id: 'district',
+      title: 'District Analysis Report',
+      description: 'Performance breakdown for 42 districts (38 TN + 4 Puducherry)',
       icon: TrendingUp,
       color: 'bg-green-50 text-green-700 border-green-200'
     },
     {
-      id: 'competitor',
-      title: 'Competitive Analysis Report',
-      description: 'Comparison with competitors across key issues',
+      id: 'caste',
+      title: 'Caste Demographics Report',
+      description: 'Caste-wise voting patterns (OBC, MBC, SC, ST, FC) across regions',
       icon: PieChart,
       color: 'bg-purple-50 text-purple-700 border-purple-200'
     },
     {
-      id: 'regional',
-      title: 'Regional Analysis Report',
-      description: 'Geographic breakdown of sentiment by region',
+      id: 'party',
+      title: 'Party Comparison Report',
+      description: 'DMK vs AIADMK vs TVK vs BJP performance comparison',
       icon: FileText,
       color: 'bg-orange-50 text-orange-700 border-orange-200'
+    },
+    {
+      id: 'booth',
+      title: 'Booth-Level Report',
+      description: 'Micro-level analysis for 50,000+ polling booths across Tamil Nadu',
+      icon: FileText,
+      color: 'bg-red-50 text-red-700 border-red-200'
+    },
+    {
+      id: 'tamil',
+      title: 'Tamil Language Report (தமிழ்)',
+      description: 'Complete report in Tamil for regional distribution and media coverage',
+      icon: FileText,
+      color: 'bg-indigo-50 text-indigo-700 border-indigo-200'
     }
   ];
 
@@ -154,67 +168,98 @@ export default function Reports() {
             <div className="mt-8">
               <h4 className="text-md font-semibold text-gray-900 mb-4">Report Preview</h4>
               <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
-                {activeReport === 'sentiment' && (
+                {activeReport === 'constituency' && (
                   <div className="space-y-4">
-                    <h5 className="font-medium text-gray-900">Sentiment Analysis Summary</h5>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      {sentimentData?.slice(0, 4).map((item, index) => (
-                        <div key={index} className="text-center">
-                          <div className="text-2xl font-bold text-gray-900">
-                            {Math.round(item.sentiment * 100)}%
-                          </div>
-                          <div className="text-sm text-gray-600">{item.issue}</div>
-                        </div>
-                      ))}
+                    <h5 className="font-medium text-gray-900">Constituency-wise Analysis (234 Total)</h5>
+                    <div className="text-sm text-gray-600">Sample constituencies with TVK vote projections</div>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                      <div>Chennai Central: <span className="text-blue-600">22.4%</span></div>
+                      <div>Coimbatore South: <span className="text-blue-600">19.8%</span></div>
+                      <div>Madurai North: <span className="text-blue-600">16.2%</span></div>
+                      <div>Salem West: <span className="text-blue-600">21.5%</span></div>
+                      <div>Trichy East: <span className="text-blue-600">18.9%</span></div>
+                      <div>Tirunelveli: <span className="text-blue-600">15.3%</span></div>
                     </div>
                   </div>
                 )}
 
-                {activeReport === 'trends' && (
+                {activeReport === 'district' && (
                   <div className="space-y-4">
-                    <h5 className="font-medium text-gray-900">Trend Analysis Summary</h5>
-                    <div className="text-sm text-gray-600">
-                      Analysis of sentiment trends over {TIME_RANGES[filters.timeRange as keyof typeof TIME_RANGES]?.label.toLowerCase() || 'selected period'}
-                    </div>
-                    <div className="flex space-x-4 text-sm">
-                      <span className="text-green-600">↑ Improving: Health, Education</span>
-                      <span className="text-red-600">↓ Declining: Jobs</span>
-                      <span className="text-gray-600">→ Stable: Infrastructure</span>
-                    </div>
-                  </div>
-                )}
-
-                {activeReport === 'competitor' && (
-                  <div className="space-y-4">
-                    <h5 className="font-medium text-gray-900">Competitive Analysis Summary</h5>
-                    <div className="text-sm text-gray-600">
-                      Head-to-head comparison across key political issues
-                    </div>
+                    <h5 className="font-medium text-gray-900">District Performance (42 Districts)</h5>
+                    <div className="text-sm text-gray-600">Top performing districts for TVK</div>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
-                        <span className="font-medium">Leading Issues:</span>
-                        <div className="text-green-600">Jobs, Health, Infrastructure</div>
+                        <span className="font-medium">Strong Districts:</span>
+                        <div className="text-green-600">Chennai (24%), Coimbatore (21%), Salem (19%)</div>
                       </div>
                       <div>
-                        <span className="font-medium">Areas for Improvement:</span>
-                        <div className="text-orange-600">Education, Law & Order</div>
+                        <span className="font-medium">Growth Potential:</span>
+                        <div className="text-orange-600">Madurai (16%), Trichy (18%), Erode (17%)</div>
                       </div>
                     </div>
                   </div>
                 )}
 
-                {activeReport === 'regional' && (
+                {activeReport === 'caste' && (
                   <div className="space-y-4">
-                    <h5 className="font-medium text-gray-900">Regional Analysis Summary</h5>
-                    <div className="text-sm text-gray-600">
-                      Geographic breakdown of sentiment across regions
-                    </div>
+                    <h5 className="font-medium text-gray-900">Caste Demographics Analysis</h5>
+                    <div className="text-sm text-gray-600">TVK support by caste category</div>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
-                      <div>Ward 1: <span className="text-green-600">72%</span></div>
-                      <div>Ward 2: <span className="text-yellow-600">58%</span></div>
-                      <div>Ward 3: <span className="text-green-600">81%</span></div>
-                      <div>Ward 4: <span className="text-orange-600">65%</span></div>
-                      <div>Ward 5: <span className="text-red-600">42%</span></div>
+                      <div>OBC (34%): <span className="text-blue-600">19.2% TVK</span></div>
+                      <div>MBC (20%): <span className="text-blue-600">22.5% TVK</span></div>
+                      <div>SC (20%): <span className="text-blue-600">14.8% TVK</span></div>
+                      <div>ST (3%): <span className="text-blue-600">11.3% TVK</span></div>
+                      <div>FC (23%): <span className="text-blue-600">21.7% TVK</span></div>
+                      <div>Vanniyar: <span className="text-green-600">31.4% TVK</span></div>
+                    </div>
+                  </div>
+                )}
+
+                {activeReport === 'party' && (
+                  <div className="space-y-4">
+                    <h5 className="font-medium text-gray-900">Party Comparison (2026 Projections)</h5>
+                    <div className="text-sm text-gray-600">Seat and vote share predictions</div>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <span className="font-medium">Seat Projections:</span>
+                        <div>DMK: <span className="text-orange-600">98 (-35)</span></div>
+                        <div>AIADMK: <span className="text-orange-600">52 (-14)</span></div>
+                        <div>TVK: <span className="text-green-600">42 (+42)</span></div>
+                        <div>BJP: <span className="text-blue-600">8 (+4)</span></div>
+                      </div>
+                      <div>
+                        <span className="font-medium">Vote Share %:</span>
+                        <div>DMK: 37.8% (-5.2%)</div>
+                        <div>AIADMK: 28.3% (-4.8%)</div>
+                        <div>TVK: 18.5% (+18.5%)</div>
+                        <div>BJP: 9.2% (+2.8%)</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {activeReport === 'booth' && (
+                  <div className="space-y-4">
+                    <h5 className="font-medium text-gray-900">Booth-Level Analysis</h5>
+                    <div className="text-sm text-gray-600">Micro-targeting for 50,000+ booths</div>
+                    <div className="text-sm">
+                      <div className="mb-2"><span className="font-medium">High Priority Booths:</span> 8,234 (potential TVK gain)</div>
+                      <div className="mb-2"><span className="font-medium">Strong Booths:</span> 12,567 (TVK 25%+ support)</div>
+                      <div><span className="font-medium">Growth Booths:</span> 18,345 (TVK 15-25% support)</div>
+                    </div>
+                  </div>
+                )}
+
+                {activeReport === 'tamil' && (
+                  <div className="space-y-4">
+                    <h5 className="font-medium text-gray-900">தமிழ் அறிக்கை (Tamil Report)</h5>
+                    <div className="text-sm text-gray-600">முழு விபரங்களும் தமிழில்</div>
+                    <div className="text-sm space-y-2">
+                      <div>தொகுதி எண்ணிக்கை: 234</div>
+                      <div>மாவட்ட எண்ணிக்கை: 42 (38 TN + 4 புதுச்சேரி)</div>
+                      <div>TVK ஆதரவு: 18.5%</div>
+                      <div>இலக்கு இடங்கள்: 42-48 தொகுதிகள்</div>
+                      <div className="text-blue-600 font-medium">முக்கிய பிரச்சினைகள்: காவிரி நீர், மதுவிலக்கு, வேலை வாய்ப்பு</div>
                     </div>
                   </div>
                 )}
@@ -270,10 +315,10 @@ export default function Reports() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Issues
+                  TN Issues (தமிழக பிரச்சினைகள்)
                 </label>
                 <div className="space-y-2 max-h-32 overflow-y-auto">
-                  {['Jobs', 'Infrastructure', 'Health', 'Education', 'Law & Order'].map(issue => (
+                  {['Cauvery Water (காவிரி நீர்)', 'NEET Exam', 'Farm Loan Waiver', 'Prohibition (மதுவிலக்கு)', 'Temple Administration', 'Jobs & Unemployment'].map(issue => (
                     <label key={issue} className="flex items-center">
                       <input
                         type="checkbox"
@@ -295,10 +340,10 @@ export default function Reports() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Regions
+                  Districts (மாவட்டங்கள்)
                 </label>
                 <div className="space-y-2 max-h-32 overflow-y-auto">
-                  {['Ward 1', 'Ward 2', 'Ward 3', 'Ward 4', 'Ward 5'].map(region => (
+                  {['Chennai', 'Coimbatore', 'Madurai', 'Salem', 'Tiruchirappalli', 'Tirunelveli', 'Vellore', 'Erode', 'Thanjavur', 'Kanyakumari'].map(region => (
                     <label key={region} className="flex items-center">
                       <input
                         type="checkbox"
@@ -321,12 +366,13 @@ export default function Reports() {
           </div>
 
           <div className="bg-white rounded-lg border border-gray-200 p-6 mt-6">
-            <h4 className="text-md font-semibold text-gray-900 mb-3">Recent Reports</h4>
+            <h4 className="text-md font-semibold text-gray-900 mb-3">Recent TN Reports</h4>
             <div className="space-y-3">
               {[
-                { name: 'Monthly Sentiment Report', date: '2024-08-01', size: '2.3 MB' },
-                { name: 'Q2 Trend Analysis', date: '2024-07-15', size: '1.8 MB' },
-                { name: 'Regional Breakdown', date: '2024-07-10', size: '3.1 MB' }
+                { name: 'Chennai Zone Constituency Analysis', date: '2025-11-07', size: '4.8 MB' },
+                { name: 'Western TN Caste Demographics', date: '2025-11-06', size: '3.2 MB' },
+                { name: 'DMK vs AIADMK vs TVK Comparison', date: '2025-11-05', size: '5.1 MB' },
+                { name: 'Tamil Report - முழு அறிக்கை', date: '2025-11-04', size: '6.4 MB' }
               ].map((report, index) => (
                 <div key={index} className="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
                   <div>

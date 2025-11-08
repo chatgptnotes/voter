@@ -191,38 +191,81 @@ export default function Alerts() {
           <div className="bg-white rounded-lg border border-gray-200 p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
               <Filter className="w-5 h-5 mr-2" />
-              Alert Rules
+              TN Alert Rules (தமிழக எச்சரிக்கைகள்)
             </h3>
-            
+
             <div className="space-y-3">
-              {alertRules.length === 0 ? (
-                <div className="text-center py-8">
-                  <Bell className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                  <p className="text-gray-500 text-sm">No alert rules configured</p>
-                  <button
-                    onClick={() => setShowRuleModal(true)}
-                    className="mt-2 text-blue-600 hover:text-blue-700 text-sm font-medium"
-                  >
-                    Create your first rule
-                  </button>
-                </div>
-              ) : (
-                alertRules.map((rule) => (
-                  <div key={rule.id} className="p-3 border border-gray-200 rounded-lg">
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="text-sm font-medium text-gray-900">{rule.name}</h4>
-                      <div className={`w-2 h-2 rounded-full ${rule.enabled ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-                    </div>
-                    <p className="text-xs text-gray-600">{rule.condition}</p>
-                    <div className="flex items-center justify-between mt-2">
-                      <span className="text-xs text-gray-500">Threshold: {rule.threshold}</span>
-                      <button className="text-blue-600 hover:text-blue-700 text-xs">
-                        Edit
-                      </button>
-                    </div>
+              {/* Pre-configured TN Alert Rules */}
+              {[
+                {
+                  id: 'tn-district-sentiment',
+                  name: '42 District Sentiment Monitor',
+                  condition: 'Sentiment drops below 60% in any district',
+                  threshold: 60,
+                  enabled: true,
+                  coverage: '42 districts'
+                },
+                {
+                  id: 'tn-booth-turnout',
+                  name: 'Booth-Level Turnout Alert',
+                  condition: 'Turnout prediction falls below 65% in 100+ booths',
+                  threshold: 65,
+                  enabled: true,
+                  coverage: '50,000+ booths'
+                },
+                {
+                  id: 'tn-constituency-swing',
+                  name: '234 Constituency Swing Detector',
+                  condition: 'TVK vote share changes by ±5% in any constituency',
+                  threshold: 5,
+                  enabled: true,
+                  coverage: '234 constituencies'
+                },
+                {
+                  id: 'tn-caste-shift',
+                  name: 'Caste Voting Pattern Alert',
+                  condition: 'Vanniyar/Thevar/Gounder support shifts ±8%',
+                  threshold: 8,
+                  enabled: true,
+                  coverage: '5 major castes'
+                },
+                {
+                  id: 'tn-dmk-aiadmk-vulnerability',
+                  name: 'DMK/AIADMK Weakness Tracker',
+                  condition: 'DMK or AIADMK stronghold shows 10%+ decline',
+                  threshold: 10,
+                  enabled: true,
+                  coverage: '53 target seats'
+                },
+                {
+                  id: 'tn-prohibition-issue',
+                  name: 'Prohibition Issue Spike',
+                  condition: 'மதுவிலக்கு mentions increase 50%+ in 24 hours',
+                  threshold: 50,
+                  enabled: true,
+                  coverage: '78 rural constituencies'
+                },
+                {
+                  id: 'tn-tamil-sentiment',
+                  name: 'Tamil Social Media Surge',
+                  condition: 'Tamil hashtag volume increases 200%+',
+                  threshold: 200,
+                  enabled: true,
+                  coverage: '6 TN channels'
+                }
+              ].map((rule) => (
+                <div key={rule.id} className="p-3 border border-gray-200 rounded-lg hover:border-blue-300 transition-colors">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="text-sm font-medium text-gray-900">{rule.name}</h4>
+                    <div className={`w-2 h-2 rounded-full ${rule.enabled ? 'bg-green-500' : 'bg-gray-300'}`}></div>
                   </div>
-                ))
-              )}
+                  <p className="text-xs text-gray-600 mb-2">{rule.condition}</p>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-gray-500">Coverage: {rule.coverage}</span>
+                    <span className="text-blue-600 font-medium">±{rule.threshold}%</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 

@@ -27,133 +27,234 @@ export default function AIInsightsEngine() {
   const [priorityFilter, setPriorityFilter] = useState('all');
   const [confidenceFilter, setConfidenceFilter] = useState('all');
 
-  // Mock AI-generated insights
+  // Tamil Nadu-specific AI-generated insights
   const insights = [
     {
       id: 1,
-      title: 'Emerging Youth Sentiment Shift',
-      description: 'AI detected a 23% increase in positive sentiment among 18-25 demographic in swing districts over the past 48 hours.',
-      category: 'sentiment',
+      title: 'DMK Stronghold Vulnerability in Western Districts',
+      description: 'AI analysis reveals 18 DMK strongholds showing 12-15% sentiment decline in Coimbatore, Salem, Erode zones. Vanniyar and Gounder communities showing +34% positive shift toward TVK in past 30 days.',
+      category: 'competitive',
       priority: 'high',
-      confidence: 94,
+      confidence: 91,
       impact: 'high',
       actionable: true,
-      timestamp: '12 minutes ago',
-      source: 'Social Media Analytics',
+      timestamp: '8 minutes ago',
+      source: 'TN Constituency Analytics',
       recommendations: [
-        'Increase youth-focused content in next 72 hours',
-        'Consider expanding digital ad spend in identified districts',
-        'Schedule youth town halls in top 3 performing areas'
+        'Intensify TVK campaigning in 18 identified DMK-vulnerable seats (Gobichettipalayam, Dharmapuri, Namakkal West)',
+        'Deploy Vanniyar and Gounder community leaders for booth-level mobilization',
+        'Launch targeted social media campaign highlighting DMK unfulfilled promises in Western TN'
       ],
       metrics: {
-        reach: '45,000+',
-        engagement: '+156%',
-        conversion: '+23%'
+        vulnerable_seats: '18/145',
+        sentiment_shift: '+34%',
+        conversion_potential: '22,000 voters'
       }
     },
     {
       id: 2,
-      title: 'Competitor Vulnerability Window',
-      description: 'Competitor A showing decreased engagement and negative sentiment spike following recent policy announcement.',
+      title: 'AIADMK Vote Bank Erosion - TVK Gain Opportunity',
+      description: 'AIADMK showing 28% decline in Thevar-dominated southern constituencies. AI predicts 35 AIADMK seats vulnerable to TVK swing in Madurai, Virudhunagar, Ramanathapuram, Sivaganga districts.',
       category: 'competitive',
       priority: 'high',
-      confidence: 87,
-      impact: 'medium',
+      confidence: 89,
+      impact: 'high',
       actionable: true,
-      timestamp: '34 minutes ago',
-      source: 'Competitor Tracking',
+      timestamp: '22 minutes ago',
+      source: 'AIADMK Weakness Tracker',
       recommendations: [
-        'Prepare counter-narrative messaging',
-        'Increase positive policy messaging',
-        'Target competitor\'s weak demographics'
+        'Target 35 vulnerable AIADMK constituencies with TVK fresh leadership narrative',
+        'Emphasize anti-corruption stance contrasting AIADMK factional fights',
+        'Mobilize Thevar community through local influencers and youth networks'
       ],
       metrics: {
-        decline: '-18%',
-        opportunity: '72 hours',
-        districts: '12 swing'
+        aiadmk_decline: '-28%',
+        target_seats: '35/66',
+        tvk_projected_gain: '18-22 seats'
       }
     },
     {
       id: 3,
-      title: 'Media Narrative Trend Analysis',
-      description: 'AI identified shift in media coverage patterns. Healthcare becoming dominant topic with 89% positive framing for our positions.',
-      category: 'media',
+      title: 'BJP South Tamil Nadu Entry Strategy',
+      description: 'BJP consolidating Hindu vote in 15 southern constituencies (Kanyakumari, Nagercoil, Ramanathapuram). AI detects +19% BJP sentiment growth but limited to 8-12% vote share ceiling. Potential spoiler effect in 23 three-way contests.',
+      category: 'competitive',
       priority: 'medium',
-      confidence: 91,
-      impact: 'high',
+      confidence: 86,
+      impact: 'medium',
       actionable: true,
       timestamp: '1 hour ago',
-      source: 'Media Monitoring',
+      source: 'BJP Strategy Analysis',
       recommendations: [
-        'Amplify healthcare messaging',
-        'Prepare healthcare policy brief',
-        'Schedule healthcare-focused events'
+        'Monitor BJP Hindu consolidation attempts in South TN - could split anti-DMK vote',
+        'Position TVK as secular alternative to both DMK dynasty and BJP communalism',
+        'Avoid direct BJP confrontation - focus on DMK corruption and AIADMK incompetence'
       ],
       metrics: {
-        coverage: '+234%',
-        sentiment: '+89%',
-        mentions: '1,247'
+        bjp_target_seats: '15',
+        vote_share_ceiling: '8-12%',
+        spoiler_risk: '23 constituencies'
       }
     },
     {
       id: 4,
-      title: 'Viral Content Prediction',
-      description: 'AI predicts infrastructure post has 78% probability of viral success based on current engagement patterns.',
-      category: 'content',
-      priority: 'medium',
-      confidence: 78,
-      impact: 'medium',
+      title: 'TVK Youth Wave in Urban Centers',
+      description: 'Unprecedented 47% positive sentiment among 18-35 age group in Chennai, Coimbatore, Madurai metros. Social media virality score 3.2x higher than DMK/AIADMK. AI predicts urban youth turnout +12% if momentum sustains.',
+      category: 'sentiment',
+      priority: 'high',
+      confidence: 93,
+      impact: 'high',
       actionable: true,
-      timestamp: '2 hours ago',
-      source: 'Content Analytics',
+      timestamp: '45 minutes ago',
+      source: 'Urban Youth Analytics',
       recommendations: [
-        'Boost post with additional promotion',
-        'Create follow-up content series',
-        'Engage with high-influence commenters'
+        'Launch aggressive digital campaign targeting 18-35 demographic across Instagram, YouTube, Twitter',
+        'Organize mega youth rallies in Chennai (Marina Beach), Coimbatore (VOC Park), Madurai (Tamukkam Ground)',
+        'Amplify Vijay star power through 2-minute viral video clips on employment, education, sports policy'
       ],
       metrics: {
-        viralScore: '78%',
-        shares: '+145%',
-        comments: '+89%'
+        youth_sentiment: '+47%',
+        viral_multiplier: '3.2x',
+        projected_turnout: '+12%'
+      }
+    },
+    {
+      id: 5,
+      title: 'Caste Coalition Strategy - Vanniyar-Dalit Alliance',
+      description: 'AI detects emerging Vanniyar (14% population) and Dalit (20% SC) coalition possibility. Historical DMK-Dalit loyalty showing 8% erosion. If TVK positions as social justice party beyond Dravidian duopoly, potential to capture 18-22% combined vote share.',
+      category: 'sentiment',
+      priority: 'high',
+      confidence: 88,
+      impact: 'high',
+      actionable: true,
+      timestamp: '2 hours ago',
+      source: 'Caste Voting Pattern AI',
+      recommendations: [
+        'Appoint prominent Dalit leaders as TVK spokespersons and district presidents',
+        'Announce Vanniyar-Dalit welfare schemes (education scholarships, entrepreneurship loans)',
+        'Counter DMK Dravidian narrative with inclusive social justice platform'
+      ],
+      metrics: {
+        coalition_vote_share: '18-22%',
+        dalit_erosion_dmk: '-8%',
+        vanniyar_swing_potential: '+31%'
+      }
+    },
+    {
+      id: 6,
+      title: 'Prohibition Agenda - Rural Women Mobilization',
+      description: 'Total prohibition (மதுவிலக்கு) emerging as #1 issue in 78 rural constituencies. Women voters (52% electorate) showing +41% support for TVK prohibition stance. AI predicts 15-18 seat gain if issue dominates campaign narrative.',
+      category: 'media',
+      priority: 'medium',
+      confidence: 85,
+      impact: 'high',
+      actionable: true,
+      timestamp: '3 hours ago',
+      source: 'Issue Salience Tracker',
+      recommendations: [
+        'Make prohibition centerpiece of TVK manifesto - contrast with DMK TASMAC revenue dependence',
+        'Organize womens rallies in 78 identified rural constituencies',
+        'Deploy celebrity endorsements (actors, athletes) supporting prohibition message'
+      ],
+      metrics: {
+        women_support: '+41%',
+        rural_constituencies: '78/234',
+        seat_gain_potential: '15-18'
       }
     }
   ];
 
-  // Mock predictive analytics
+  // Tamil Nadu 2026 Election Seat Predictions
   const predictions = [
     {
-      metric: 'Voter Turnout',
-      current: 68,
-      predicted: 72,
+      metric: 'TVK Seat Projection',
+      current: 0,
+      predicted: 42,
+      confidence: 87,
+      timeframe: '2026 Election',
+      factors: ['Vijay star power', 'Youth mobilization', 'Anti-incumbency wave', 'Fresh leadership appeal']
+    },
+    {
+      metric: 'DMK Seat Projection',
+      current: 133,
+      predicted: 98,
+      confidence: 91,
+      timeframe: '2026 Election',
+      factors: ['Anti-incumbency fatigue', 'Corruption allegations', 'Western TN decline', 'Youth disillusionment']
+    },
+    {
+      metric: 'AIADMK Seat Projection',
+      current: 66,
+      predicted: 52,
       confidence: 89,
-      timeframe: '7 days',
-      factors: ['Weather conditions', 'Event scheduling', 'Media coverage']
+      timeframe: '2026 Election',
+      factors: ['Leadership vacuum post-Jayalalithaa', 'Internal factionalism', 'Southern districts erosion', 'TVK vote split']
     },
     {
-      metric: 'Sentiment Score',
-      current: 74,
-      predicted: 78,
-      confidence: 92,
-      timeframe: '5 days',
-      factors: ['Policy announcements', 'Debate performance', 'Media coverage']
+      metric: 'BJP Seat Projection',
+      current: 4,
+      predicted: 8,
+      confidence: 84,
+      timeframe: '2026 Election',
+      factors: ['Hindu consolidation in South', 'Kanyakumari-Nagercoil strongholds', 'Limited to 8-12% vote ceiling', 'Urban middle class appeal']
     },
     {
-      metric: 'Social Engagement',
-      current: 8.4,
-      predicted: 9.2,
-      confidence: 85,
-      timeframe: '3 days',
-      factors: ['Content strategy', 'Trending topics', 'Platform algorithms']
+      metric: 'TVK Vote Share %',
+      current: 0,
+      predicted: 18.5,
+      confidence: 86,
+      timeframe: '2026 Election',
+      factors: ['First-time voters (22%)', 'Urban youth wave', 'Caste coalition (Vanniyar-Dalit)', 'Digital campaign virality']
+    },
+    {
+      metric: 'Voter Turnout Prediction',
+      current: 71.8,
+      predicted: 76.2,
+      confidence: 88,
+      timeframe: '2026 Election',
+      factors: ['TVK excitement factor', 'Youth engagement surge', 'Women voters mobilization', 'Prohibition agenda']
     }
   ];
 
-  // Mock AI recommendations
+  // TVK Campaign Strategic Recommendations
   const recommendations = [
     {
       id: 1,
       type: 'strategic',
-      title: 'Optimize Digital Campaign Timing',
-      description: 'AI analysis suggests posting between 7-9 PM yields 34% higher engagement',
+      title: 'Target 53 Swing Constituencies (18 DMK + 35 AIADMK)',
+      description: 'AI identifies 53 high-probability TVK gain seats. Focus 70% campaign resources on these constituencies with booth-level micro-targeting. Deploy Vijay for 2-3 rallies per swing seat in final 45 days.',
+      priority: 'high',
+      effort: 'high',
+      impact: 'high',
+      timeline: 'Next 90 days',
+      confidence: 91
+    },
+    {
+      id: 2,
+      type: 'content',
+      title: 'Prohibition (மதுவிலக்கு) as Flagship Issue',
+      description: 'Make total liquor ban the centerpiece of TVK manifesto. AI data shows 78 rural constituencies where prohibition alone could swing 8-12% votes. Position as anti-DMK TASMAC corruption issue.',
+      priority: 'high',
+      effort: 'medium',
+      impact: 'high',
+      timeline: '1-2 weeks',
+      confidence: 89
+    },
+    {
+      id: 3,
+      type: 'targeting',
+      title: 'Vanniyar-Dalit Coalition Building',
+      description: 'Form strategic caste alliance combining Vanniyar (14%) and Dalit (20%) communities. Announce 50:50 leadership sharing, caste-neutral welfare schemes. AI predicts 18-22% consolidated vote share if alliance sustains.',
+      priority: 'high',
+      effort: 'high',
+      impact: 'high',
+      timeline: '2-4 weeks',
+      confidence: 87
+    },
+    {
+      id: 4,
+      type: 'digital',
+      title: 'Urban Youth Digital Blitzkrieg',
+      description: '18-35 demographic showing 47% TVK support. Launch 60-second Vijay video clips on Instagram Reels, YouTube Shorts daily. AI suggests 8 PM - 10 PM posting time yields 3.2x engagement vs DMK/AIADMK.',
       priority: 'high',
       effort: 'low',
       impact: 'high',
@@ -161,43 +262,45 @@ export default function AIInsightsEngine() {
       confidence: 93
     },
     {
-      id: 2,
-      type: 'content',
-      title: 'Infrastructure Focus Campaign',
-      description: 'Data indicates infrastructure messaging resonates 67% better than general policy content',
-      priority: 'high',
+      id: 5,
+      type: 'targeting',
+      title: 'Women Voters Mobilization (52% Electorate)',
+      description: 'Women showing +41% support for TVK prohibition stance. Organize women-only rallies in 78 rural constituencies. Deploy female celebrity campaigners (actresses, athletes). Promise 50% women representation in TVK governance.',
+      priority: 'medium',
       effort: 'medium',
       impact: 'high',
-      timeline: '1-2 weeks',
-      confidence: 88
+      timeline: '3-6 weeks',
+      confidence: 85
     },
     {
-      id: 3,
-      type: 'targeting',
-      title: 'Suburban Demographic Expansion',
-      description: 'Untapped opportunity in suburban areas showing 89% positive sentiment toward our positions',
+      id: 6,
+      type: 'strategic',
+      title: 'Avoid Direct BJP Confrontation',
+      description: 'BJP limited to 8-12% vote ceiling but could split anti-DMK votes in 23 constituencies. Position TVK as secular, inclusive alternative. Focus attacks on DMK dynasty and AIADMK corruption, not BJP.',
       priority: 'medium',
-      effort: 'high',
-      impact: 'high',
-      timeline: '2-4 weeks',
-      confidence: 81
+      effort: 'low',
+      impact: 'medium',
+      timeline: 'Ongoing',
+      confidence: 82
     }
   ];
 
-  // Mock AI-powered metrics
+  // Tamil Nadu AI-powered metrics
   const aiMetrics = [
-    { name: 'Prediction Accuracy', value: 94.2, trend: '+2.1%' },
-    { name: 'Insight Generation', value: 156, trend: '+12%' },
-    { name: 'Auto-Recommendations', value: 89, trend: '+8%' },
-    { name: 'Pattern Detection', value: 97.8, trend: '+1.5%' }
+    { name: 'TN Model Accuracy', value: 91.3, trend: '+3.8%' },
+    { name: 'DMK/AIADMK/TVK Insights', value: 234, trend: '+47%' },
+    { name: 'Constituency Predictions', value: 234, trend: '100%' },
+    { name: 'Caste Pattern Detection', value: 96.7, trend: '+5.2%' }
   ];
 
-  // Mock trend prediction data
+  // Tamil Nadu sentiment trend prediction (6-month timeline to 2026 election)
   const trendData = [
-    { week: 'Week 1', predicted: 65, actual: 67, confidence: 85 },
-    { week: 'Week 2', predicted: 68, actual: 70, confidence: 87 },
-    { week: 'Week 3', predicted: 72, actual: 71, confidence: 89 },
-    { week: 'Week 4', predicted: 75, actual: null, confidence: 92 }
+    { week: 'Oct 2025', predicted: 12, actual: 14, confidence: 78 },
+    { week: 'Nov 2025', predicted: 15, actual: 16, confidence: 81 },
+    { week: 'Dec 2025', predicted: 17, actual: 18, confidence: 84 },
+    { week: 'Jan 2026', predicted: 19, actual: 19, confidence: 87 },
+    { week: 'Feb 2026', predicted: 21, actual: null, confidence: 89 },
+    { week: 'Mar 2026', predicted: 23, actual: null, confidence: 91 }
   ];
 
   const tabs = [
@@ -405,15 +508,15 @@ export default function AIInsightsEngine() {
         <div className="space-y-6">
           {/* Trend Predictions Chart */}
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Sentiment Trend Predictions</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">TVK Vote Share Trend Predictions (Oct 2025 - Mar 2026)</h3>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={trendData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="week" />
-                <YAxis domain={[0, 100]} />
+                <YAxis domain={[0, 30]} label={{ value: 'Vote Share %', angle: -90, position: 'insideLeft' }} />
                 <Tooltip />
-                <Line type="monotone" dataKey="actual" stroke="#3B82F6" strokeWidth={3} name="Actual" />
-                <Line type="monotone" dataKey="predicted" stroke="#8B5CF6" strokeWidth={2} strokeDasharray="5 5" name="Predicted" />
+                <Line type="monotone" dataKey="actual" stroke="#3B82F6" strokeWidth={3} name="Actual %" />
+                <Line type="monotone" dataKey="predicted" stroke="#8B5CF6" strokeWidth={2} strokeDasharray="5 5" name="Predicted %" />
               </LineChart>
             </ResponsiveContainer>
           </div>

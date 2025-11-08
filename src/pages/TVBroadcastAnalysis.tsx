@@ -502,10 +502,10 @@ export default function TVBroadcastAnalysis() {
 
                     <div className="flex justify-between items-center">
                       <div className="flex space-x-2">
-                        <MobileButton variant="ghost" size="small">
+                        <MobileButton variant="outline" size="small">
                           <Volume2 className="w-4 h-4" />
                         </MobileButton>
-                        <MobileButton variant="ghost" size="small">
+                        <MobileButton variant="outline" size="small">
                           <Headphones className="w-4 h-4" />
                         </MobileButton>
                       </div>
@@ -580,7 +580,7 @@ export default function TVBroadcastAnalysis() {
                         </div>
                         
                         <div className="flex space-x-2">
-                          <MobileButton variant="ghost" size="small">
+                          <MobileButton variant="outline" size="small">
                             <Eye className="w-4 h-4" />
                           </MobileButton>
                           <MobileButton variant="outline" size="small">
@@ -737,13 +737,13 @@ export default function TVBroadcastAnalysis() {
                     </div>
                     
                     <div className="flex space-x-2">
-                      <MobileButton variant="ghost" size="small">
+                      <MobileButton variant="outline" size="small">
                         <Play className="w-4 h-4" />
                       </MobileButton>
-                      <MobileButton variant="ghost" size="small">
+                      <MobileButton variant="outline" size="small">
                         <Download className="w-4 h-4" />
                       </MobileButton>
-                      <MobileButton variant="ghost" size="small">
+                      <MobileButton variant="outline" size="small">
                         <Share2 className="w-4 h-4" />
                       </MobileButton>
                     </div>

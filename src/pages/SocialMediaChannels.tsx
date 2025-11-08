@@ -852,13 +852,13 @@ export default function SocialMediaChannels() {
                       </div>
                       
                       <div className="flex space-x-2">
-                        <MobileButton variant="ghost" size="small">
+                        <MobileButton variant="outline" size="small">
                           <Bookmark className="w-4 h-4" />
                         </MobileButton>
-                        <MobileButton variant="ghost" size="small">
+                        <MobileButton variant="outline" size="small">
                           <ExternalLink className="w-4 h-4" />
                         </MobileButton>
-                        <MobileButton variant="ghost" size="small">
+                        <MobileButton variant="outline" size="small">
                           <Download className="w-4 h-4" />
                         </MobileButton>
                       </div>

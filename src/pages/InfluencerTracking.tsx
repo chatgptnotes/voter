@@ -40,7 +40,6 @@ import {
   Shield,
   Verified,
   Flame,
-  Trending,
   Network
 } from 'lucide-react';
 import { MobileCard, ResponsiveGrid, MobileButton, MobileTabs } from '../components/MobileResponsive';
@@ -850,10 +849,10 @@ export default function InfluencerTracking() {
                         </div>
                         
                         <div className="flex space-x-2">
-                          <MobileButton variant="ghost" size="small">
+                          <MobileButton variant="outline" size="small">
                             <Eye className="w-4 h-4" />
                           </MobileButton>
-                          <MobileButton variant="ghost" size="small">
+                          <MobileButton variant="outline" size="small">
                             <Bookmark className="w-4 h-4" />
                           </MobileButton>
                           <MobileButton variant="outline" size="small">
@@ -977,13 +976,13 @@ export default function InfluencerTracking() {
                     </div>
                     
                     <div className="flex space-x-2">
-                      <MobileButton variant="ghost" size="small">
+                      <MobileButton variant="outline" size="small">
                         <Bookmark className="w-4 h-4" />
                       </MobileButton>
-                      <MobileButton variant="ghost" size="small">
+                      <MobileButton variant="outline" size="small">
                         <ExternalLink className="w-4 h-4" />
                       </MobileButton>
-                      <MobileButton variant="ghost" size="small">
+                      <MobileButton variant="outline" size="small">
                         <Download className="w-4 h-4" />
                       </MobileButton>
                     </div>

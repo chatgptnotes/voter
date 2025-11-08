@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, LineChart, Line, ResponsiveContainer, ScatterChart, Scatter } from 'recharts';
-import { TrendingUp, BarChart3, Activity, Calendar, Users, MessageCircle, Eye, Brain, Target, Zap, Database, UserCheck } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, LineChart, Line, ResponsiveContainer, ScatterChart, Scatter, PieChart, Pie, Cell, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend } from 'recharts';
+import { TrendingUp, BarChart3, Activity, Calendar, Users, MessageCircle, Eye, Brain, Target, Zap, Database, UserCheck, MapPin, Vote, TrendingDown, AlertCircle } from 'lucide-react';
 import SocialMediaMonitoring from '../components/SocialMediaMonitoring';
 import CompetitorTracking from '../components/CompetitorTracking';
 import AIInsightsEngine from '../components/AIInsightsEngine';
@@ -9,11 +9,13 @@ import FieldWorkerManagement from '../components/FieldWorkerManagement';
 import { useSentimentData, useTrendData } from '../hooks/useSentimentData';
 import { calculateSentimentTrend, getTopIssues, formatNumber } from '../utils/dataProcessing';
 import { CHART_COLORS } from '../utils/constants';
+import { TN_POLITICAL_PARTIES, TN_CASTE_DEMOGRAPHICS, TN_ELECTION_ISSUES, TN_2021_ELECTION_RESULTS } from '../config/tamilnadu-config';
+import { tamilNaduDistricts, allDistricts } from '../data/tamilnadu-data';
 
 export default function Analytics() {
   const [timeRange, setTimeRange] = useState('30d');
   const [activeChart, setActiveChart] = useState('sentiment-overview');
-  const [activeTab, setActiveTab] = useState('traditional');
+  const [activeTab, setActiveTab] = useState('tn-demographics');
 
   const { data: sentimentData } = useSentimentData();
   const { data: trendData } = useTrendData(timeRange);
@@ -86,6 +88,7 @@ export default function Analytics() {
   ];
 
   const tabs = [
+    { id: 'tn-demographics', label: 'TN Demographics', icon: MapPin },
     { id: 'traditional', label: 'Traditional Analytics', icon: BarChart3 },
     { id: 'social-media', label: 'Social Media Monitoring', icon: MessageCircle },
     { id: 'competitor', label: 'Competitor Tracking', icon: Target },
@@ -140,6 +143,311 @@ export default function Analytics() {
       </div>
 
       {/* Tab Content */}
+      {activeTab === 'tn-demographics' && (
+        <div className="space-y-6">
+          {/* TN Overview KPIs */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Total Voters (TN)</p>
+                  <p className="text-2xl font-bold text-gray-900">6.28 Cr</p>
+                  <p className="text-sm text-green-600">+2.3% from 2021</p>
+                </div>
+                <Users className="w-8 h-8 text-blue-600" />
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Total Districts</p>
+                  <p className="text-2xl font-bold text-gray-900">38 TN + 4 PY</p>
+                  <p className="text-sm text-blue-600">42 Districts</p>
+                </div>
+                <MapPin className="w-8 h-8 text-purple-600" />
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Constituencies</p>
+                  <p className="text-2xl font-bold text-gray-900">234 + 30</p>
+                  <p className="text-sm text-orange-600">264 Total</p>
+                </div>
+                <Vote className="w-8 h-8 text-orange-600" />
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">TVK Priority Voters</p>
+                  <p className="text-2xl font-bold text-gray-900">45.5 Cr</p>
+                  <p className="text-sm text-green-600">72% of electorate</p>
+                </div>
+                <Target className="w-8 h-8 text-green-600" />
+              </div>
+            </div>
+          </div>
+
+          {/* Caste Demographics & 2021 Election Results */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Caste Demographics */}
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Caste Demographics (Tamil Nadu)</h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                  <Pie
+                    data={[
+                      { name: 'OBC (பிற்படுத்தப்பட்டோர்)', value: TN_CASTE_DEMOGRAPHICS.OBC.percentage, color: '#3b82f6' },
+                      { name: 'MBC (மிகப் பிற்படுத்தப்பட்டோர்)', value: TN_CASTE_DEMOGRAPHICS.MBC.percentage, color: '#8b5cf6' },
+                      { name: 'SC (தாழ்த்தப்பட்டோர்)', value: TN_CASTE_DEMOGRAPHICS.SC.percentage, color: '#ec4899' },
+                      { name: 'FC (முன்னோர்)', value: TN_CASTE_DEMOGRAPHICS.FC.percentage, color: '#f59e0b' },
+                      { name: 'ST (பழங்குடியினர்)', value: TN_CASTE_DEMOGRAPHICS.ST.percentage, color: '#10b981' }
+                    ]}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={({ name, percent }) => `${name.split('(')[0].trim()}: ${(percent * 100).toFixed(0)}%`}
+                    outerRadius={100}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {[
+                      { color: '#3b82f6' },
+                      { color: '#8b5cf6' },
+                      { color: '#ec4899' },
+                      { color: '#f59e0b' },
+                      { color: '#10b981' }
+                    ].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="mt-4 space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-600">OBC (Other Backward Classes)</span>
+                  <span className="font-medium text-gray-900">54% • 3.39 Cr voters</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-600">MBC (Most Backward Classes)</span>
+                  <span className="font-medium text-gray-900">20% • 1.26 Cr voters</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-600">SC (Scheduled Castes)</span>
+                  <span className="font-medium text-gray-900">20% • 1.26 Cr voters</span>
+                </div>
+              </div>
+            </div>
+
+            {/* 2021 Election Results */}
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">2021 Assembly Election Results</h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={[
+                  { party: 'DMK', seats: TN_2021_ELECTION_RESULTS.DMK.seats, voteShare: TN_2021_ELECTION_RESULTS.DMK.voteShare, color: '#FF0000' },
+                  { party: 'AIADMK', seats: TN_2021_ELECTION_RESULTS.AIADMK.seats, voteShare: TN_2021_ELECTION_RESULTS.AIADMK.voteShare, color: '#006400' },
+                  { party: 'BJP', seats: TN_2021_ELECTION_RESULTS.BJP.seats, voteShare: TN_2021_ELECTION_RESULTS.BJP.voteShare, color: '#FF9933' },
+                  { party: 'Congress', seats: TN_2021_ELECTION_RESULTS.Congress.seats, voteShare: TN_2021_ELECTION_RESULTS.Congress.voteShare, color: '#00BFFF' },
+                  { party: 'PMK', seats: TN_2021_ELECTION_RESULTS.PMK.seats, voteShare: TN_2021_ELECTION_RESULTS.PMK.voteShare, color: '#FFFF00' },
+                  { party: 'Others', seats: TN_2021_ELECTION_RESULTS.Others.seats, voteShare: TN_2021_ELECTION_RESULTS.Others.voteShare, color: '#808080' }
+                ]}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="party" />
+                  <YAxis yAxisId="left" orientation="left" stroke="#8884d8" label={{ value: 'Seats Won', angle: -90, position: 'insideLeft' }} />
+                  <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" label={{ value: 'Vote Share %', angle: 90, position: 'insideRight' }} />
+                  <Tooltip
+                    formatter={(value: any, name: string) => [
+                      name === 'seats' ? value : `${value}%`,
+                      name === 'seats' ? 'Seats Won' : 'Vote Share'
+                    ]}
+                  />
+                  <Legend />
+                  <Bar yAxisId="left" dataKey="seats" fill="#8884d8" name="Seats" />
+                  <Bar yAxisId="right" dataKey="voteShare" fill="#82ca9d" name="Vote Share %" />
+                </BarChart>
+              </ResponsiveContainer>
+              <div className="mt-4 text-sm text-gray-600">
+                <p className="font-medium text-gray-900 mb-2">Key Insights:</p>
+                <ul className="space-y-1 list-disc list-inside">
+                  <li>DMK alliance won with 159 seats (67.9% seats)</li>
+                  <li>AIADMK alliance got 75 seats (32.1% seats)</li>
+                  <li>Vote share gap was only 5.5% (DMK+ 47.4% vs AIADMK+ 41.9%)</li>
+                  <li>TVK can target swing voters and young first-time voters</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Political Parties & TN-Specific Issues */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Political Party Landscape */}
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Political Party Landscape</h3>
+              <div className="space-y-3">
+                {Object.entries(TN_POLITICAL_PARTIES).map(([key, party]) => (
+                  <div key={key} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center">
+                      <div
+                        className="w-4 h-4 rounded-full mr-3"
+                        style={{ backgroundColor: party.color }}
+                      ></div>
+                      <div>
+                        <div className="font-medium text-gray-900">{party.shortName} ({party.name})</div>
+                        <div className="text-xs text-gray-600">{party.leader}</div>
+                      </div>
+                    </div>
+                    {key === 'TVK' && (
+                      <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
+                        Our Party
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* TN-Specific Issues (Dravidian Politics Context) */}
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Tamil Nadu Priority Issues (தமிழக முக்கிய பிரச்சினைகள்)</h3>
+              <div className="space-y-3">
+                {Object.entries(TN_ELECTION_ISSUES).map(([key, issue]) => (
+                  <div key={key} className="p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="font-medium text-gray-900">{issue.name}</div>
+                      <span className={`px-2 py-1 text-xs font-medium rounded ${
+                        issue.priority === 'critical' ? 'bg-red-100 text-red-700' :
+                        issue.priority === 'high' ? 'bg-orange-100 text-orange-700' :
+                        'bg-blue-100 text-blue-700'
+                      }`}>
+                        {issue.priority.toUpperCase()}
+                      </span>
+                    </div>
+                    <div className="text-sm text-gray-600">{issue.nameInTamil}</div>
+                    <div className="text-xs text-gray-500 mt-1">{issue.description}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* District-wise Voter Distribution & TVK Target Segments */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Top 10 Districts by Voters */}
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Top 10 Districts by Voter Population</h3>
+              <div className="space-y-2">
+                {Object.values(tamilNaduDistricts)
+                  .sort((a, b) => b.totalVoters - a.totalVoters)
+                  .slice(0, 10)
+                  .map((district, index) => (
+                    <div key={district.code} className="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
+                      <div className="flex items-center">
+                        <span className="w-6 h-6 flex items-center justify-center bg-blue-100 text-blue-700 text-xs font-bold rounded mr-3">
+                          {index + 1}
+                        </span>
+                        <div>
+                          <div className="font-medium text-gray-900">{district.name}</div>
+                          <div className="text-xs text-gray-500">{district.constituencies.length} constituencies</div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-medium text-gray-900">{(district.totalVoters / 100000).toFixed(2)}L</div>
+                        <div className="text-xs text-gray-500">{district.area} km²</div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+
+            {/* TVK Priority Voter Segments */}
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">TVK Priority Voter Segments</h3>
+              <div className="space-y-3">
+                <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="font-medium text-gray-900">CRITICAL Priority</div>
+                    <AlertCircle className="w-5 h-5 text-red-600" />
+                  </div>
+                  <ul className="text-sm text-gray-700 space-y-1">
+                    <li>• Youth (18-25): <span className="font-medium">8.5 Cr voters • 75% win probability</span></li>
+                    <li>• Private Sector: <span className="font-medium">10 Cr • 70% win probability</span></li>
+                    <li>• Students: <span className="font-medium">5 Cr • 80% win probability</span></li>
+                    <li>• Unemployed Youth: <span className="font-medium">6 Cr • 75% win probability</span></li>
+                    <li>• Urban Voters: <span className="font-medium">25 Cr • 70% win probability</span></li>
+                  </ul>
+                </div>
+
+                <div className="p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="font-medium text-gray-900">HIGH Priority</div>
+                    <TrendingUp className="w-5 h-5 text-orange-600" />
+                  </div>
+                  <ul className="text-sm text-gray-700 space-y-1">
+                    <li>• OBC Communities: <span className="font-medium">25 Cr • 60% win probability</span></li>
+                    <li>• Farmers: <span className="font-medium">8 Cr • 55% win probability</span></li>
+                    <li>• SC Communities: <span className="font-medium">10 Cr • 55% win probability</span></li>
+                    <li>• Laborers: <span className="font-medium">12 Cr • 60% win probability</span></li>
+                  </ul>
+                </div>
+
+                <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+                  <div className="text-sm font-medium text-blue-900 mb-1">Strategic Insight:</div>
+                  <p className="text-xs text-blue-700">
+                    Vijay's cinema popularity gives TVK a natural advantage among youth (18-35) and urban voters.
+                    Focus on social justice messaging to win OBC/MBC/SC votes from DMK. Target first-time voters
+                    who haven't developed party loyalty yet.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Dravidian Politics Context Alert */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6">
+            <div className="flex items-start">
+              <Brain className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0 mt-1" />
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Dravidian Politics Context (திராவிட அரசியல் சூழல்)</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
+                  <div>
+                    <p className="font-medium text-gray-900 mb-2">Historical Dominance:</p>
+                    <ul className="space-y-1 list-disc list-inside">
+                      <li>DMK & AIADMK dominate since 1967</li>
+                      <li>Anti-Brahmin, social justice foundation</li>
+                      <li>Strong caste-based voting patterns</li>
+                      <li>Cinema-politics nexus (MGR, Jayalalithaa, Vijayakanth)</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-900 mb-2">TVK Opportunity:</p>
+                    <ul className="space-y-1 list-disc list-inside">
+                      <li>Vijay = Cinema icon (like MGR/Rajinikanth)</li>
+                      <li>Young, aspirational image appeals to youth</li>
+                      <li>No corruption baggage (fresh alternative)</li>
+                      <li>Can break DMK-AIADMK duopoly with right messaging</li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="mt-4 p-3 bg-white rounded-lg">
+                  <p className="text-xs text-gray-600">
+                    <span className="font-medium text-gray-900">Key Strategy:</span> Position TVK as the "Third Front" -
+                    pro-Tamil, pro-social justice (like DMK) but without corruption (unlike both DMK & AIADMK).
+                    Target first-time voters who haven't inherited family party loyalties. Use Vijay's mass appeal
+                    to cut across caste lines while maintaining Dravidian ideology.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {activeTab === 'traditional' && (
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

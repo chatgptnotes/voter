@@ -76,100 +76,124 @@ interface TrendingTopic {
 
 const newsSources: NewsSource[] = [
   {
-    id: 'manorama',
-    name: 'Malayala Manorama',
-    logo: '📰',
-    credibilityScore: 92,
-    bias: 'center',
-    region: 'Kerala',
-    language: 'Malayalam',
-    active: true,
-    articlesCount: 1247,
-    reachEstimate: 2800000
-  },
-  {
-    id: 'mathrubhumi',
-    name: 'Mathrubhumi',
-    logo: '📖',
-    credibilityScore: 89,
-    bias: 'center',
-    region: 'Kerala',
-    language: 'Malayalam',
-    active: true,
-    articlesCount: 1156,
-    reachEstimate: 2200000
-  },
-  {
-    id: 'hindu',
-    name: 'The Hindu',
-    logo: '🗞️',
-    credibilityScore: 94,
-    bias: 'center',
-    region: 'National',
-    language: 'English',
-    active: true,
-    articlesCount: 892,
-    reachEstimate: 1800000
-  },
-  {
-    id: 'times',
-    name: 'Times of India',
-    logo: '⏰',
+    id: 'sun-news',
+    name: 'Sun News (சன் நியூஸ்)',
+    logo: '☀️',
     credibilityScore: 78,
     bias: 'center',
-    region: 'National',
-    language: 'English',
+    region: 'Tamil Nadu',
+    language: 'Tamil',
     active: true,
-    articlesCount: 2341,
-    reachEstimate: 4200000
+    articlesCount: 3247,
+    reachEstimate: 4800000
   },
   {
-    id: 'indian-express',
-    name: 'Indian Express',
-    logo: '🚂',
-    credibilityScore: 87,
-    bias: 'center',
-    region: 'National',
-    language: 'English',
-    active: true,
-    articlesCount: 756,
-    reachEstimate: 1600000
-  },
-  {
-    id: 'asianet',
-    name: 'Asianet News',
-    logo: '📺',
-    credibilityScore: 82,
-    bias: 'center',
-    region: 'Kerala',
-    language: 'Malayalam',
-    active: true,
-    articlesCount: 1689,
-    reachEstimate: 1900000
-  },
-  {
-    id: 'ndtv',
-    name: 'NDTV',
-    logo: '📹',
+    id: 'puthiya-thalaimurai',
+    name: 'Puthiya Thalaimurai (புதிய தலைமுறை)',
+    logo: '📰',
     credibilityScore: 85,
     bias: 'center',
-    region: 'National',
+    region: 'Tamil Nadu',
+    language: 'Tamil',
+    active: true,
+    articlesCount: 2156,
+    reachEstimate: 3200000
+  },
+  {
+    id: 'news7-tamil',
+    name: 'News7 Tamil',
+    logo: '7️⃣',
+    credibilityScore: 82,
+    bias: 'center',
+    region: 'Tamil Nadu',
+    language: 'Tamil',
+    active: true,
+    articlesCount: 1892,
+    reachEstimate: 2900000
+  },
+  {
+    id: 'polimer-news',
+    name: 'Polimer News (பாலிமர் செய்திகள்)',
+    logo: '📺',
+    credibilityScore: 79,
+    bias: 'center',
+    region: 'Tamil Nadu',
+    language: 'Tamil',
+    active: true,
+    articlesCount: 2341,
+    reachEstimate: 3500000
+  },
+  {
+    id: 'thanthi-tv',
+    name: 'Thanthi TV (தந்தி டிவி)',
+    logo: '📡',
+    credibilityScore: 88,
+    bias: 'center',
+    region: 'Tamil Nadu',
+    language: 'Tamil',
+    active: true,
+    articlesCount: 2756,
+    reachEstimate: 4100000
+  },
+  {
+    id: 'news18-tn',
+    name: 'News18 Tamil Nadu',
+    logo: '🗞️',
+    credibilityScore: 81,
+    bias: 'center',
+    region: 'Tamil Nadu',
+    language: 'Tamil/English',
+    active: true,
+    articlesCount: 1689,
+    reachEstimate: 2600000
+  },
+  {
+    id: 'hindu-tamil-nadu',
+    name: 'The Hindu (TN Edition)',
+    logo: '📖',
+    credibilityScore: 94,
+    bias: 'center',
+    region: 'Tamil Nadu',
     language: 'English',
     active: true,
     articlesCount: 1123,
-    reachEstimate: 2100000
+    reachEstimate: 1800000
   },
   {
-    id: 'aaj-tak',
-    name: 'Aaj Tak',
-    logo: '🎯',
-    credibilityScore: 75,
+    id: 'dinamalar',
+    name: 'Dinamalar (தினமலர்)',
+    logo: '📄',
+    credibilityScore: 86,
     bias: 'center',
-    region: 'National',
-    language: 'Hindi',
+    region: 'Tamil Nadu',
+    language: 'Tamil',
     active: true,
-    articlesCount: 1834,
-    reachEstimate: 3200000
+    articlesCount: 2834,
+    reachEstimate: 4400000
+  },
+  {
+    id: 'dinakaran',
+    name: 'Dinakaran (தினகரன்)',
+    logo: '🌅',
+    credibilityScore: 83,
+    bias: 'center',
+    region: 'Tamil Nadu',
+    language: 'Tamil',
+    active: true,
+    articlesCount: 2245,
+    reachEstimate: 3800000
+  },
+  {
+    id: 'dinamani',
+    name: 'Dinamani (தினமணி)',
+    logo: '📋',
+    credibilityScore: 87,
+    bias: 'center',
+    region: 'Tamil Nadu',
+    language: 'Tamil',
+    active: true,
+    articlesCount: 1967,
+    reachEstimate: 3100000
   }
 ];
 
@@ -746,13 +770,13 @@ export default function PressMediaMonitoring() {
                         </div>
                         
                         <div className="flex space-x-2">
-                          <MobileButton variant="ghost" size="small">
+                          <MobileButton variant="outline" size="small">
                             <Bookmark className="w-4 h-4" />
                           </MobileButton>
-                          <MobileButton variant="ghost" size="small">
+                          <MobileButton variant="outline" size="small">
                             <Share2 className="w-4 h-4" />
                           </MobileButton>
-                          <MobileButton variant="ghost" size="small">
+                          <MobileButton variant="outline" size="small">
                             <ExternalLink className="w-4 h-4" />
                           </MobileButton>
                         </div>

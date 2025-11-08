@@ -31,17 +31,32 @@ export default function FieldWorkerManagement() {
   const [selectedWorker, setSelectedWorker] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterLevel, setFilterLevel] = useState('all');
+  const [selectedDistrict, setSelectedDistrict] = useState('all');
+  const [showAssignModal, setShowAssignModal] = useState(false);
 
-  // Mock field worker data
+  // Tamil Nadu + Puducherry Districts (38 TN + 4 PY = 42)
+  const tnDistricts = [
+    'Chennai', 'Coimbatore', 'Madurai', 'Tiruchirappalli', 'Salem', 'Tirunelveli',
+    'Tiruppur', 'Erode', 'Vellore', 'Thoothukudi', 'Thanjavur', 'Dindigul',
+    'Kanchipuram', 'Cuddalore', 'Nagapattinam', 'Virudhunagar', 'Namakkal',
+    'Krishnagiri', 'Karur', 'Sivagangai', 'Dharmapuri', 'Pudukkottai',
+    'Ramanathapuram', 'Ariyalur', 'Perambalur', 'Nilgiris', 'Tiruvannamalai',
+    'Villupuram', 'Kanyakumari', 'Theni', 'Tiruvallur', 'Tiruvarur',
+    'Ranipet', 'Kallakurichi', 'Chengalpattu', 'Tenkasi', 'Tirupathur',
+    'Mayiladuthurai', 'Puducherry', 'Karaikal', 'Mahe', 'Yanam'
+  ];
+
+  // Tamil Nadu Field Worker Data
   const fieldWorkers = [
     {
       id: 'FW001',
-      name: 'Amit Singh',
+      name: 'கார்த்திக் குமார் (Karthik Kumar)',
       phone: '+91-9876543210',
-      email: 'amit.singh@campaign.com',
+      email: 'karthik.kumar@tvk.com',
       level: 'Senior',
-      constituency: 'Gurgaon Rural',
-      booths: ['GR-001', 'GR-002', 'GR-003'],
+      district: 'Chennai',
+      constituency: 'Anna Nagar',
+      booths: ['CHN-AN-001', 'CHN-AN-002', 'CHN-AN-003', 'CHN-AN-004'],
       joinDate: '2024-01-01',
       avatar: '👨‍💼',
       performance: {
@@ -61,25 +76,26 @@ export default function FieldWorkerManagement() {
         { week: 'Week 4', contacts: 290, registrations: 69, events: 1 }
       ],
       recentActivities: [
-        { date: '2024-01-15', activity: 'Door-to-door campaign', area: 'Sector 12', contacts: 45, notes: 'Positive response to infrastructure policies' },
-        { date: '2024-01-14', activity: 'Voter registration drive', area: 'Sector 11', contacts: 38, notes: 'Registered 12 new voters' },
-        { date: '2024-01-13', activity: 'Rally organization', area: 'Community Center', contacts: 230, notes: 'Successful turnout, good engagement' }
+        { date: '2024-01-15', activity: 'Door-to-door campaign', area: 'Anna Nagar West', contacts: 45, notes: 'Strong support for TVK education policies. Youth enthusiastic about Vijay leadership.' },
+        { date: '2024-01-14', activity: 'Voter registration drive', area: 'Thirumangalam', contacts: 38, notes: 'Registered 12 new first-time voters' },
+        { date: '2024-01-13', activity: 'Rally organization', area: 'Anna Nagar Tower Park', contacts: 230, notes: 'Massive turnout. Anti-DMK sentiment strong.' }
       ],
-      strengths: ['Excellent communication', 'Strong local network', 'High voter registration rate'],
-      improvements: ['Digital outreach', 'Data entry speed'],
+      strengths: ['Excellent Tamil communication', 'Strong Chennai network', 'High youth voter registration'],
+      improvements: ['Rural outreach', 'WhatsApp group management'],
       assignments: [
-        { task: 'Booth coverage analysis', deadline: '2024-01-20', status: 'In Progress' },
-        { task: 'Youth voter registration', deadline: '2024-01-25', status: 'Pending' }
+        { task: 'Anna Nagar booth coverage analysis', deadline: '2024-01-20', status: 'In Progress' },
+        { task: 'College voter registration drive', deadline: '2024-01-25', status: 'Pending' }
       ]
     },
     {
       id: 'FW002',
-      name: 'Priya Sharma',
+      name: 'பிரியா ஸ்ரீநிவாசன் (Priya Srinivasan)',
       phone: '+91-9876543211',
-      email: 'priya.sharma@campaign.com',
-      level: 'Mid-Level',
-      constituency: 'Noida',
-      booths: ['ND-001', 'ND-002'],
+      email: 'priya.srinivasan@tvk.com',
+      level: 'Senior',
+      district: 'Coimbatore',
+      constituency: 'Coimbatore South',
+      booths: ['CBE-CS-001', 'CBE-CS-002', 'CBE-CS-003'],
       joinDate: '2024-01-05',
       avatar: '👩‍💼',
       performance: {
@@ -99,24 +115,25 @@ export default function FieldWorkerManagement() {
         { week: 'Week 4', contacts: 200, registrations: 50, events: 1 }
       ],
       recentActivities: [
-        { date: '2024-01-15', activity: 'WhatsApp outreach', area: 'Sector 15', contacts: 120, notes: 'Shared policy updates and event information' },
-        { date: '2024-01-14', activity: 'Women\'s meeting', area: 'Community Hall', contacts: 65, notes: 'Discussed women safety initiatives' }
+        { date: '2024-01-15', activity: 'WhatsApp outreach', area: 'RS Puram', contacts: 120, notes: 'Strong response from business community. IT job creation message resonating well.' },
+        { date: '2024-01-14', activity: 'Women meeting', area: 'Coimbatore Women College', contacts: 65, notes: 'Women safety and education - positive feedback on TVK policies' }
       ],
-      strengths: ['Digital savvy', 'Women\'s issues expert', 'Good data management'],
-      improvements: ['Public speaking', 'Event organization'],
+      strengths: ['Digital savvy', 'Women issues expert', 'Strong Kongu belt connections'],
+      improvements: ['Caste balance outreach', 'Tamil fluency'],
       assignments: [
-        { task: 'Women voter outreach', deadline: '2024-01-22', status: 'Completed' },
-        { task: 'Social media campaign', deadline: '2024-01-28', status: 'In Progress' }
+        { task: 'Women voter outreach - Industrial areas', deadline: '2024-01-22', status: 'Completed' },
+        { task: 'Gounder community meeting', deadline: '2024-01-28', status: 'In Progress' }
       ]
     },
     {
       id: 'FW003',
-      name: 'Rajesh Kumar',
+      name: 'முருகேஷ் தேவர் (Murugesh Thevar)',
       phone: '+91-9876543212',
-      email: 'rajesh.kumar@campaign.com',
-      level: 'Junior',
-      constituency: 'Chandni Chowk',
-      booths: ['CC-001'],
+      email: 'murugesh.thevar@tvk.com',
+      level: 'Mid-Level',
+      district: 'Madurai',
+      constituency: 'Madurai Central',
+      booths: ['MDU-MC-001', 'MDU-MC-002'],
       joinDate: '2024-01-10',
       avatar: '👨‍🎓',
       performance: {
@@ -181,12 +198,28 @@ export default function FieldWorkerManagement() {
 
   const filteredWorkers = fieldWorkers.filter(worker => {
     const matchesSearch = worker.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         worker.constituency.toLowerCase().includes(searchTerm.toLowerCase());
-    
+                         worker.constituency.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         (worker.district && worker.district.toLowerCase().includes(searchTerm.toLowerCase()));
+
     const matchesLevel = filterLevel === 'all' || worker.level.toLowerCase() === filterLevel.toLowerCase();
-    
-    return matchesSearch && matchesLevel;
+
+    const matchesDistrict = selectedDistrict === 'all' || worker.district === selectedDistrict;
+
+    return matchesSearch && matchesLevel && matchesDistrict;
   });
+
+  // Calculate district-wise stats
+  const districtStats = tnDistricts.map(district => {
+    const districtWorkers = fieldWorkers.filter(w => w.district === district);
+    return {
+      district,
+      workers: districtWorkers.length,
+      active: districtWorkers.filter(w => w.performance.efficiency > 85).length,
+      avgPerformance: districtWorkers.length > 0
+        ? Math.round(districtWorkers.reduce((sum, w) => sum + w.performance.rating, 0) / districtWorkers.length * 10) / 10
+        : 0
+    };
+  }).filter(stat => stat.workers > 0).sort((a, b) => b.workers - a.workers);
 
   const getPerformanceColor = (rating: number) => {
     if (rating >= 4.5) return 'text-green-600 bg-green-100';
@@ -417,14 +450,31 @@ export default function FieldWorkerManagement() {
                 <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Search workers by name or constituency..."
+                  placeholder="Search workers by name, constituency, or district..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <select 
-                value={filterLevel} 
+              <select
+                value={selectedDistrict}
+                onChange={(e) => setSelectedDistrict(e.target.value)}
+                className="border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[200px]"
+              >
+                <option value="all">All Districts (TN + PY)</option>
+                <optgroup label="Tamil Nadu (38)">
+                  {tnDistricts.slice(0, 38).map(district => (
+                    <option key={district} value={district}>{district}</option>
+                  ))}
+                </optgroup>
+                <optgroup label="Puducherry (4)">
+                  {tnDistricts.slice(38).map(district => (
+                    <option key={district} value={district}>{district}</option>
+                  ))}
+                </optgroup>
+              </select>
+              <select
+                value={filterLevel}
                 onChange={(e) => setFilterLevel(e.target.value)}
                 className="border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
@@ -435,6 +485,80 @@ export default function FieldWorkerManagement() {
               </select>
             </div>
           </div>
+
+          {/* District Overview Panel */}
+          {selectedDistrict === 'all' && (
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">District-wise Coverage (Tamil Nadu + Puducherry)</h3>
+                <span className="text-sm text-gray-600">{districtStats.length} districts with field workers</span>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
+                {districtStats.map((stat) => (
+                  <div
+                    key={stat.district}
+                    onClick={() => setSelectedDistrict(stat.district)}
+                    className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-3 cursor-pointer hover:shadow-md transition-all border border-blue-200"
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <MapPin className="w-4 h-4 text-blue-600" />
+                      <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                        stat.active === stat.workers ? 'bg-green-200 text-green-800' : 'bg-yellow-200 text-yellow-800'
+                      }`}>
+                        {stat.active}/{stat.workers}
+                      </span>
+                    </div>
+                    <div className="font-semibold text-gray-900 text-sm truncate" title={stat.district}>
+                      {stat.district}
+                    </div>
+                    <div className="text-xs text-gray-600 flex items-center mt-1">
+                      <Star className="w-3 h-3 text-yellow-500 mr-1" />
+                      {stat.avgPerformance > 0 ? stat.avgPerformance : 'N/A'}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 flex items-center justify-between text-sm text-gray-600">
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center">
+                    <div className="w-3 h-3 rounded-full bg-green-500 mr-1"></div>
+                    <span>All Active</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-3 h-3 rounded-full bg-yellow-500 mr-1"></div>
+                    <span>Partial Coverage</span>
+                  </div>
+                </div>
+                <button className="text-blue-600 hover:text-blue-700 font-medium">
+                  View Full District Report →
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Active District Filter Display */}
+          {selectedDistrict !== 'all' && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <MapPin className="w-5 h-5 text-blue-600" />
+                  <div>
+                    <div className="font-semibold text-gray-900">Showing: {selectedDistrict} District</div>
+                    <div className="text-sm text-gray-600">
+                      {filteredWorkers.length} field worker{filteredWorkers.length !== 1 ? 's' : ''} assigned
+                    </div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setSelectedDistrict('all')}
+                  className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium"
+                >
+                  <X className="w-4 h-4" />
+                  <span>Clear Filter</span>
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Worker Cards */}
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">

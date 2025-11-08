@@ -64,6 +64,7 @@ export default function Layout({ children }: LayoutProps) {
     { name: 'Field Worker App', href: '/field-worker-app', icon: Smartphone, current: location.pathname === '/field-worker-app' },
     { name: 'Competitor Tracking', href: '/competitor-tracking', icon: Target, current: location.pathname === '/competitor-tracking' },
     { name: 'Regional Map', href: '/regional-map', icon: MapPin, current: location.pathname === '/regional-map' },
+    { name: 'Tamil Nadu Map', href: '/tamil-nadu-map', icon: MapPin, current: location.pathname === '/tamil-nadu-map' },
     { name: 'Reports', href: '/reports', icon: FileText, current: location.pathname === '/reports' },
     { name: 'Alerts', href: '/alerts', icon: AlertCircle, current: location.pathname === '/alerts' },
     ...(currentUser?.role === 'admin' ? [
@@ -202,8 +203,26 @@ export default function Layout({ children }: LayoutProps) {
             </div>
           </div>
         </main>
+
+        {/* Version Footer */}
+        <footer className="bg-white border-t border-gray-200 py-4 px-6">
+          <div className="max-w-7xl mx-auto flex items-center justify-between text-xs text-gray-500">
+            <div>
+              Pulse of People - Tamil Nadu Voter Platform (TVK 2026)
+            </div>
+            <div className="flex items-center space-x-4">
+              <span className="font-semibold text-gray-700">Version 1.2 FINAL</span>
+              <span>•</span>
+              <span>Updated: November 8, 2025</span>
+              <span>•</span>
+              <span className="text-green-600 font-bold">90% Complete (90/100 features)</span>
+              <span>•</span>
+              <span className="text-purple-600 font-medium">30/30 Core Features ✓</span>
+            </div>
+          </div>
+        </footer>
       </div>
-      
+
       <LoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} />
     </div>
   )

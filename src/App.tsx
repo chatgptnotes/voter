@@ -52,6 +52,7 @@ import ExportManager from './components/ExportManager'
 import FieldWorkerApp from './components/FieldWorkerApp'
 import CompetitorTracking from './components/CompetitorTracking'
 import RegionalMap from './pages/RegionalMap'
+import TamilNaduMapDashboard from './pages/TamilNaduMapDashboard'
 import { MobileContactBar } from './components/MobileResponsive'
 import SuperAdminDashboard from './pages/SuperAdmin/Dashboard'
 import AdminManagement from './pages/SuperAdmin/AdminManagement'
@@ -378,6 +379,13 @@ function App() {
                 <ProtectedRoute>
                   <Layout>
                     <RegionalMap />
+                  </Layout>
+                </ProtectedRoute>
+              } />
+              <Route path="/tamil-nadu-map" element={
+                <ProtectedRoute>
+                  <Layout>
+                    <TamilNaduMapDashboard />
                   </Layout>
                 </ProtectedRoute>
               } />
