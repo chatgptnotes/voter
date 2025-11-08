@@ -17,7 +17,36 @@ import {
   Close as CloseIcon,
   Logout as LogoutIcon,
   AdminPanelSettings as SuperAdminIcon,
-  Shield as SecurityIcon
+  Shield as SecurityIcon,
+  // Data Intelligence Icons
+  Satellite as DataIntelligenceIcon,
+  Twitter as TwitterIcon,
+  Tv as TvIcon,
+  Newspaper as NewspaperIcon,
+  RecordVoiceOver as InfluencerIcon,
+  SmartToy as BotIcon,
+  Poll as PollIcon,
+  CameraAlt as DataCaptureIcon,
+  // Analytics Icons
+  TrendingUp as TrendingIcon,
+  Insights as InsightsIcon,
+  Assessment as AssessmentIcon,
+  CompareArrows as ComparisonIcon,
+  Timeline as TimelineIcon,
+  // Geographic Icons
+  Map as MapIcon,
+  LocationOn as LocationIcon,
+  Public as GlobalIcon,
+  Place as PlaceIcon,
+  // Operations Icons
+  WorkOutline as OperationsIcon,
+  PersonSearch as FieldWorkerIcon,
+  Storage as DatabaseIcon,
+  TrackChanges as TrackingIcon,
+  // Alerts Icons
+  NotificationsActive as AlertActiveIcon,
+  Warning as CrisisIcon,
+  Forum as EngagementIcon
 } from '@mui/icons-material';
 import { useAuth } from '../contexts/AuthContext';
 import { usePermission } from '../hooks/usePermission';
@@ -34,6 +63,8 @@ interface MenuItem {
 interface MenuSection {
   title: string;
   items: MenuItem[];
+  categoryIcon?: any;
+  categoryColor?: string; // Tailwind color class prefix (e.g., 'blue', 'green', 'orange')
 }
 
 export function EnhancedNavigation() {
@@ -112,29 +143,66 @@ export function EnhancedNavigation() {
     },
   ];
 
-  // Standard User Navigation
+  // Standard User Navigation - Categorized Structure
   const userMenu: MenuSection[] = [
     {
-      title: 'Dashboard',
+      title: 'Data Intelligence',
+      categoryIcon: DataIntelligenceIcon,
+      categoryColor: 'blue',
       items: [
-        { name: 'Overview', href: '/dashboard', icon: DashboardIcon },
-        { name: 'Analytics', href: '/analytics', icon: AnalyticsIcon },
-        { name: 'Voter Database', href: '/voter-database', icon: UsersIcon },
+        { name: 'Social Media Monitor', href: '/social-media-channels', icon: TwitterIcon },
+        { name: 'TV Broadcast Analysis', href: '/tv-broadcast-analysis', icon: TvIcon },
+        { name: 'Press Monitoring', href: '/press-media-monitoring', icon: NewspaperIcon },
+        { name: 'Influencer Tracking', href: '/influencer-tracking', icon: InfluencerIcon },
+        { name: 'Conversation Bot', href: '/conversation-bot', icon: BotIcon },
+        { name: 'Political Polling', href: '/political-polling', icon: PollIcon },
+        { name: 'Data Capture Kit', href: '/data-kit', icon: DataCaptureIcon },
+        { name: 'Data Submission', href: '/submit-data', icon: DataCaptureIcon },
       ],
     },
     {
-      title: 'Campaign Tools',
+      title: 'Analytics & Insights',
+      categoryIcon: TrendingIcon,
+      categoryColor: 'green',
       items: [
-        { name: 'Social Media', href: '/social-media', icon: DashboardIcon },
-        { name: 'Field Workers', href: '/field-workers', icon: UsersIcon },
-        { name: 'AI Insights', href: '/ai-insights', icon: SecurityIcon },
-      ],
-    },
-    {
-      title: 'Reports',
-      items: [
+        { name: 'Main Dashboard', href: '/dashboard', icon: DashboardIcon },
+        { name: 'Analytics Dashboard', href: '/analytics-dashboard', icon: AnalyticsIcon },
+        { name: 'Advanced Charts', href: '/advanced-charts', icon: AssessmentIcon },
+        { name: 'AI Insights', href: '/ai-insights', icon: InsightsIcon },
         { name: 'Reports', href: '/reports', icon: ReportsIcon },
-        { name: 'Alerts', href: '/alerts', icon: AlertsIcon },
+        { name: 'Competitor Analysis', href: '/competitor-analysis', icon: ComparisonIcon },
+        { name: 'Data Tracking', href: '/data-tracking', icon: TimelineIcon },
+      ],
+    },
+    {
+      title: 'Maps & Territory',
+      categoryIcon: MapIcon,
+      categoryColor: 'orange',
+      items: [
+        { name: 'Regional Map', href: '/regional-map', icon: GlobalIcon },
+        { name: 'Tamil Nadu Map', href: '/tamil-nadu-map', icon: MapIcon },
+        { name: 'Voter Database', href: '/voter-database', icon: DatabaseIcon },
+        { name: 'My Constituency', href: '/constituency', icon: PlaceIcon },
+      ],
+    },
+    {
+      title: 'Campaign Operations',
+      categoryIcon: OperationsIcon,
+      categoryColor: 'purple',
+      items: [
+        { name: 'Field Workers', href: '/field-workers', icon: FieldWorkerIcon },
+        { name: 'Data Capture Kit', href: '/data-kit', icon: DataCaptureIcon },
+        { name: 'Data Tracking', href: '/data-tracking', icon: TrackingIcon },
+      ],
+    },
+    {
+      title: 'Alerts & Engagement',
+      categoryIcon: AlertActiveIcon,
+      categoryColor: 'red',
+      items: [
+        { name: 'Alert Center', href: '/alerts', icon: AlertsIcon },
+        { name: 'Social Listening', href: '/social-media-channels', icon: TwitterIcon },
+        { name: 'Bot Engagement', href: '/conversation-bot', icon: EngagementIcon },
       ],
     },
   ];
@@ -250,44 +318,55 @@ export function EnhancedNavigation() {
 
         {/* Navigation Sections */}
         <nav className="flex-1 px-4 py-4 space-y-6 overflow-y-auto">
-          {getMenuSections().map((section, idx) => (
-            <div key={idx}>
-              <h3 className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                {section.title}
-              </h3>
-              <div className="mt-2 space-y-1">
-                {section.items
-                  .filter((item) => !item.permission || usePermission(item.permission))
-                  .map((item) => {
-                    const Icon = item.icon;
-                    const active = isActive(item.href);
+          {getMenuSections().map((section, idx) => {
+            const CategoryIcon = section.categoryIcon;
+            const colorClass = section.categoryColor || 'gray';
 
-                    return (
-                      <button
-                        key={item.name}
-                        onClick={() => {
-                          navigate(item.href);
-                          setSidebarOpen(false);
-                        }}
-                        className={`w-full flex items-center px-3 py-2 text-sm font-medium rounded-lg ${
-                          active
-                            ? 'bg-blue-50 text-blue-600'
-                            : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
-                        }`}
-                      >
-                        <Icon className={`w-5 h-5 mr-3 ${active ? 'text-blue-600' : 'text-gray-400'}`} />
-                        {item.name}
-                        {item.badge && (
-                          <span className="ml-auto px-2 py-0.5 text-xs font-medium bg-red-100 text-red-600 rounded-full">
-                            {item.badge}
-                          </span>
-                        )}
-                      </button>
-                    );
-                  })}
+            return (
+              <div key={idx}>
+                {/* Category Header with Icon */}
+                <div className="flex items-center px-3 mb-2">
+                  {CategoryIcon && (
+                    <CategoryIcon className={`w-4 h-4 mr-2 text-${colorClass}-600`} />
+                  )}
+                  <h3 className={`text-xs font-semibold text-${colorClass}-600 uppercase tracking-wider`}>
+                    {section.title}
+                  </h3>
+                </div>
+                <div className="mt-2 space-y-1">
+                  {section.items
+                    .filter((item) => !item.permission || usePermission(item.permission))
+                    .map((item) => {
+                      const Icon = item.icon;
+                      const active = isActive(item.href);
+
+                      return (
+                        <button
+                          key={item.name}
+                          onClick={() => {
+                            navigate(item.href);
+                            setSidebarOpen(false);
+                          }}
+                          className={`w-full flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all ${
+                            active
+                              ? `bg-${colorClass}-50 text-${colorClass}-700 border-l-4 border-${colorClass}-600`
+                              : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 border-l-4 border-transparent'
+                          }`}
+                        >
+                          <Icon className={`w-5 h-5 mr-3 ${active ? `text-${colorClass}-600` : 'text-gray-400'}`} />
+                          {item.name}
+                          {item.badge && (
+                            <span className="ml-auto px-2 py-0.5 text-xs font-medium bg-red-100 text-red-600 rounded-full">
+                              {item.badge}
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
 
           {/* Settings & Logout */}
           <div>
