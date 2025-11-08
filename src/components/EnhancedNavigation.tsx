@@ -322,14 +322,26 @@ export function EnhancedNavigation() {
             const CategoryIcon = section.categoryIcon;
             const colorClass = section.categoryColor || 'gray';
 
+            // Map color names to Tailwind classes (for build-time detection)
+            const colorStyles = {
+              blue: { icon: 'text-blue-600', header: 'text-blue-600', activeBg: 'bg-blue-50', activeText: 'text-blue-700', activeBorder: 'border-blue-600' },
+              green: { icon: 'text-green-600', header: 'text-green-600', activeBg: 'bg-green-50', activeText: 'text-green-700', activeBorder: 'border-green-600' },
+              orange: { icon: 'text-orange-600', header: 'text-orange-600', activeBg: 'bg-orange-50', activeText: 'text-orange-700', activeBorder: 'border-orange-600' },
+              purple: { icon: 'text-purple-600', header: 'text-purple-600', activeBg: 'bg-purple-50', activeText: 'text-purple-700', activeBorder: 'border-purple-600' },
+              red: { icon: 'text-red-600', header: 'text-red-600', activeBg: 'bg-red-50', activeText: 'text-red-700', activeBorder: 'border-red-600' },
+              gray: { icon: 'text-gray-600', header: 'text-gray-600', activeBg: 'bg-gray-50', activeText: 'text-gray-700', activeBorder: 'border-gray-600' }
+            };
+
+            const styles = colorStyles[colorClass as keyof typeof colorStyles] || colorStyles.gray;
+
             return (
               <div key={idx}>
                 {/* Category Header with Icon */}
                 <div className="flex items-center px-3 mb-2">
                   {CategoryIcon && (
-                    <CategoryIcon className={`w-4 h-4 mr-2 text-${colorClass}-600`} />
+                    <CategoryIcon className={`w-4 h-4 mr-2 ${styles.icon}`} />
                   )}
-                  <h3 className={`text-xs font-semibold text-${colorClass}-600 uppercase tracking-wider`}>
+                  <h3 className={`text-xs font-semibold ${styles.header} uppercase tracking-wider`}>
                     {section.title}
                   </h3>
                 </div>
@@ -347,13 +359,13 @@ export function EnhancedNavigation() {
                             navigate(item.href);
                             setSidebarOpen(false);
                           }}
-                          className={`w-full flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all ${
+                          className={`w-full flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all border-l-4 ${
                             active
-                              ? `bg-${colorClass}-50 text-${colorClass}-700 border-l-4 border-${colorClass}-600`
-                              : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 border-l-4 border-transparent'
+                              ? `${styles.activeBg} ${styles.activeText} ${styles.activeBorder}`
+                              : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 border-transparent'
                           }`}
                         >
-                          <Icon className={`w-5 h-5 mr-3 ${active ? `text-${colorClass}-600` : 'text-gray-400'}`} />
+                          <Icon className={`w-5 h-5 mr-3 ${active ? styles.icon : 'text-gray-400'}`} />
                           {item.name}
                           {item.badge && (
                             <span className="ml-auto px-2 py-0.5 text-xs font-medium bg-red-100 text-red-600 rounded-full">
