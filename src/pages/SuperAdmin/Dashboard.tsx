@@ -270,7 +270,7 @@ export function SuperAdminDashboard() {
           <div className="bg-white rounded-lg shadow p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">System Health</h3>
             <div className="flex items-center">
-              <CheckCircle className="w-10 h-10 text-green-500 mr-3" />
+              <CheckIcon className="w-10 h-10 text-green-500 mr-3" />
               <div>
                 <p className="text-lg font-semibold text-green-600">All Systems Operational</p>
                 <p className="text-sm text-gray-500">Last checked: just now</p>
