@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import RealTimeIndicator from './RealTimeIndicator'
 import LoginModal from './LoginModal'
 import { EnhancedNavigation } from './EnhancedNavigation'
+import { CheckCircle as CheckIcon } from '@mui/icons-material'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -35,11 +36,14 @@ export default function Layout({ children }: LayoutProps) {
               Pulse of People - Tamil Nadu Voter Platform (TVK 2026)
             </div>
             <div className="flex items-center space-x-4">
-              <span className="font-semibold text-gray-700">Version 1.3</span>
+              <span className="font-semibold text-gray-700">Version 1.4</span>
               <span>•</span>
               <span>Updated: November 8, 2025</span>
               <span>•</span>
-              <span className="text-green-600 font-bold">Categorized Navigation ✓</span>
+              <span className="text-green-600 font-bold flex items-center">
+                Interactive Mapbox Map
+                <CheckIcon className="w-4 h-4 ml-1" />
+              </span>
             </div>
           </div>
         </footer>
