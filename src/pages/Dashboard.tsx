@@ -6,7 +6,7 @@ import CompetitorComparison from '../components/CompetitorComparison'
 import SentimentHeatmap from '../components/SentimentHeatmap'
 import InfluencerTracking from '../components/InfluencerTracking'
 import AlertsPanel from '../components/AlertsPanel'
-import TamilNaduMap from '../components/maps/TamilNaduMap'
+import { MapboxTamilNadu } from '../components/maps/MapboxTamilNadu'
 import ExportManager from '../components/ExportManager'
 import AdvancedChart from '../components/AdvancedChart'
 import { MobileNavigation, ResponsiveContainer, MobileCard, ResponsiveGrid, MobileButton, MobileStats } from '../components/MobileResponsive'
@@ -383,9 +383,9 @@ export default function Dashboard() {
               </div>
             </MobileCard>
           )}
-          
+
           <div className="w-full">
-            <TamilNaduMap data={tamilNaduMapData} height={400} />
+            <MapboxTamilNadu height="600px" onConstituencyClick={(constituency) => console.log('Clicked:', constituency)} />
           </div>
 
           <ResponsiveGrid cols={{ sm: 1, lg: 2, xl: 3 }}>
