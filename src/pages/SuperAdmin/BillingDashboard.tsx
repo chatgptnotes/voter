@@ -324,7 +324,7 @@ export function BillingDashboard() {
               <div className="bg-white rounded-lg shadow p-6">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-gray-500">Collection Rate</span>
-                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  <PaidIcon className="w-5 h-5 text-green-500" />
                 </div>
                 <p className="text-3xl font-bold text-gray-900">{stats.collectionRate}%</p>
                 <p className="text-sm text-gray-500 mt-1">
