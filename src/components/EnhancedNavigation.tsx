@@ -257,6 +257,7 @@ export function EnhancedNavigation() {
       {/* Sidebar */}
       <div className={`
         fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-in-out
+        flex flex-col
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         md:translate-x-0
       `}>
@@ -266,7 +267,7 @@ export function EnhancedNavigation() {
         </div>
 
         {/* User Info & Tenant Switcher */}
-        <div className="p-4 border-b border-gray-200">
+        <div className="flex-shrink-0 p-4 border-b border-gray-200">
           {user && (
             <div className="mb-3">
               <div className="flex items-center">
@@ -425,7 +426,7 @@ export function EnhancedNavigation() {
 
         {/* Role Badge */}
         {isSuperAdmin && (
-          <div className="p-4 border-t border-gray-200">
+          <div className="flex-shrink-0 p-4 border-t border-gray-200">
             <div className="flex items-center px-3 py-2 bg-purple-50 rounded-lg">
               <SuperAdminIcon className="w-5 h-5 text-purple-600 mr-2" />
               <span className="text-sm font-medium text-purple-600">Super Admin</span>
