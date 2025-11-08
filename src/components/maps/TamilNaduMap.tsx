@@ -462,3 +462,5 @@ export const TamilNaduMap: React.FC<TamilNaduMapProps> = ({
     </div>
   );
 };
+
+export default TamilNaduMap;
