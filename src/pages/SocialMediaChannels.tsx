@@ -212,9 +212,9 @@ const mockSocialPosts: SocialPost[] = [
   {
     id: '1',
     platform: 'Facebook',
-    author: 'Kerala State News',
+    author: 'Tamil Nadu State News',
     authorFollowers: 450000,
-    content: 'Breaking: Kerala Budget 2026 allocates ₹15,000 crores for education sector modernization. This historic investment will benefit over 45 lakh students across the state. #KeralaBudget2026 #Education #Development',
+    content: 'Breaking: Tamil Nadu Budget 2026 allocates ₹15,000 crores for education sector modernization. This historic investment will benefit over 45 lakh students across the state. #TNBudget2026 #Education #Development',
     timestamp: new Date(Date.now() - 1800000), // 30 minutes ago
     engagement: {
       likes: 12500,
@@ -225,11 +225,11 @@ const mockSocialPosts: SocialPost[] = [
     sentiment: 'positive',
     sentimentScore: 0.78,
     topics: ['Budget', 'Education', 'Development'],
-    mentions: ['Kerala State', 'Education Department'],
-    hashtags: ['#KeralaBudget2026', '#Education', '#Development'],
+    mentions: ['Tamil Nadu State', 'Education Department'],
+    hashtags: ['#TNBudget2026', '#Education', '#Development'],
     mediaType: 'image',
     isVerified: true,
-    location: 'Thiruvananthapuram',
+    location: 'Chennai',
     language: 'English',
     influence: 85,
     viralPotential: 78,
@@ -238,9 +238,9 @@ const mockSocialPosts: SocialPost[] = [
   {
     id: '2',
     platform: 'Instagram',
-    author: 'YouthKeralaNow',
+    author: 'YouthTamilNaduNow',
     authorFollowers: 180000,
-    content: 'Young voters are speaking up! Our generation cares about climate action, job opportunities, and digital infrastructure. Time for leaders to listen 🗳️ #YouthVoice #Kerala2026',
+    content: 'Young voters are speaking up! Our generation cares about climate action, job opportunities, and digital infrastructure. Time for leaders to listen 🗳️ #YouthVoice #TN2026',
     timestamp: new Date(Date.now() - 3600000), // 1 hour ago
     engagement: {
       likes: 8500,
@@ -252,10 +252,10 @@ const mockSocialPosts: SocialPost[] = [
     sentimentScore: 0.65,
     topics: ['Youth', 'Climate', 'Employment', 'Digital Infrastructure'],
     mentions: ['Youth Voters', 'Leaders'],
-    hashtags: ['#YouthVoice', '#Kerala2026'],
+    hashtags: ['#YouthVoice', '#TN2026'],
     mediaType: 'video',
     isVerified: false,
-    location: 'Kochi',
+    location: 'Coimbatore',
     language: 'English',
     influence: 72,
     viralPotential: 85,
@@ -264,7 +264,7 @@ const mockSocialPosts: SocialPost[] = [
   {
     id: '3',
     platform: 'Twitter/X',
-    author: 'KeralaPolitics',
+    author: 'TamilNaduPolitics',
     authorFollowers: 75000,
     content: 'Infrastructure projects timeline extended again. Citizens deserve transparent updates on project status and realistic completion dates. #Accountability #Infrastructure',
     timestamp: new Date(Date.now() - 7200000), // 2 hours ago
@@ -281,7 +281,7 @@ const mockSocialPosts: SocialPost[] = [
     hashtags: ['#Accountability', '#Infrastructure'],
     mediaType: 'text',
     isVerified: true,
-    location: 'Kerala',
+    location: 'Tamil Nadu',
     language: 'English',
     influence: 68,
     viralPotential: 62,
@@ -292,7 +292,7 @@ const mockSocialPosts: SocialPost[] = [
 const trendingHashtags: TrendingHashtag[] = [
   {
     id: '1',
-    hashtag: '#KeralaBudget2026',
+    hashtag: '#TNBudget2026',
     platform: 'Multiple',
     mentions: 45600,
     growth: 185,
@@ -711,8 +711,8 @@ export default function SocialMediaChannels() {
                         className="w-full p-2 border border-gray-300 rounded text-sm"
                       >
                         <option value="all">All Languages</option>
+                        <option value="Tamil">Tamil</option>
                         <option value="English">English</option>
-                        <option value="Malayalam">Malayalam</option>
                         <option value="Hindi">Hindi</option>
                       </select>
                     </div>
@@ -985,7 +985,7 @@ export default function SocialMediaChannels() {
                     </h4>
                   </div>
                   <p className="text-responsive-xs text-gray-700">
-                    Peak engagement occurs between 7-9 PM across Malayalam content, while English content 
+                    Peak engagement occurs between 7-9 PM across Tamil content, while English content
                     performs best during 11 AM-2 PM and 6-8 PM slots.
                   </p>
                 </div>

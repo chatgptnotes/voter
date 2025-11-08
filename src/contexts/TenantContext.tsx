@@ -71,8 +71,8 @@ export function TenantProvider({ children, fallback, errorFallback }: TenantProv
           currency: 'INR',
           billingCycle: 'monthly',
           paymentStatus: 'paid',
-          coverageArea: 'Kerala',
-          state: 'Kerala',
+          coverageArea: 'Tamil Nadu',
+          state: 'Tamil Nadu',
           districts: [],
           wardCount: 0,
           expectedUsers: 100,
@@ -121,7 +121,7 @@ export function TenantProvider({ children, fallback, errorFallback }: TenantProv
 
       if (!identification) {
         throw new Error(
-          'No tenant identified. Please access via a tenant-specific URL (e.g., kerala.pulseofpeople.com)'
+          'No tenant identified. Please access via a tenant-specific URL (e.g., tamilnadu.pulseofpeople.com)'
         );
       }
 

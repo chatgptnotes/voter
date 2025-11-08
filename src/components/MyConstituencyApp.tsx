@@ -87,7 +87,7 @@ interface Event {
 
 export default function MyConstituencyApp() {
   const [activeTab, setActiveTab] = useState<'issues' | 'representatives' | 'events' | 'insights' | 'report'>('issues');
-  const [selectedConstituency] = useState('Thiruvananthapuram Central');
+  const [selectedConstituency] = useState('Chennai Central');
   const [showReportForm, setShowReportForm] = useState(false);
   const [selectedIssue, setSelectedIssue] = useState<Issue | null>(null);
   const [filterCategory, setFilterCategory] = useState('all');

@@ -113,8 +113,8 @@ interface TrendingInfluencer {
 const influencers: Influencer[] = [
   {
     id: '1',
-    name: 'Pinarayi Vijayan',
-    handle: '@pinarayivijayan',
+    name: 'M.K. Stalin',
+    handle: '@mkstalin',
     avatar: '👤',
     platforms: ['Twitter/X', 'Facebook', 'Instagram'],
     totalFollowers: 2800000,
@@ -123,8 +123,8 @@ const influencers: Influencer[] = [
     sentiment: 68,
     category: 'political',
     verified: true,
-    location: 'Kerala, India',
-    language: ['Malayalam', 'English'],
+    location: 'Tamil Nadu, India',
+    language: ['Tamil', 'English'],
     reachEstimate: 5600000,
     postsPerWeek: 12,
     avgShares: 15600,
@@ -140,8 +140,8 @@ const influencers: Influencer[] = [
   },
   {
     id: '2',
-    name: 'Ramesh Chennithala',
-    handle: '@chennithala',
+    name: 'Edappadi K. Palaniswami',
+    handle: '@EPSTamilNadu',
     avatar: '👤',
     platforms: ['Twitter/X', 'Facebook'],
     totalFollowers: 1200000,
@@ -150,8 +150,8 @@ const influencers: Influencer[] = [
     sentiment: 45,
     category: 'political',
     verified: true,
-    location: 'Kerala, India',
-    language: ['Malayalam', 'English'],
+    location: 'Tamil Nadu, India',
+    language: ['Tamil', 'English'],
     reachEstimate: 2400000,
     postsPerWeek: 18,
     avgShares: 8900,
@@ -167,18 +167,18 @@ const influencers: Influencer[] = [
   },
   {
     id: '3',
-    name: 'Priya Prakash Varrier',
-    handle: '@priya.prakash.varrier',
+    name: 'Sivakarthikeyan',
+    handle: '@Siva_Kartikeyan',
     avatar: '👤',
-    platforms: ['Instagram', 'TikTok', 'YouTube'],
+    platforms: ['Instagram', 'Twitter/X', 'YouTube'],
     totalFollowers: 6800000,
     engagementRate: 12.4,
     influenceScore: 82,
     sentiment: 78,
     category: 'celebrity',
     verified: true,
-    location: 'Kerala, India',
-    language: ['Malayalam', 'English', 'Hindi'],
+    location: 'Tamil Nadu, India',
+    language: ['Tamil', 'English', 'Hindi'],
     reachEstimate: 8900000,
     postsPerWeek: 8,
     avgShares: 45000,
@@ -194,8 +194,8 @@ const influencers: Influencer[] = [
   },
   {
     id: '4',
-    name: 'John Brittas',
-    handle: '@johnbrittas',
+    name: 'Rangaraj Pandey',
+    handle: '@rangarajpandey',
     avatar: '👤',
     platforms: ['Twitter/X', 'YouTube'],
     totalFollowers: 890000,
@@ -204,8 +204,8 @@ const influencers: Influencer[] = [
     sentiment: 62,
     category: 'journalist',
     verified: true,
-    location: 'Kerala, India',
-    language: ['Malayalam', 'English'],
+    location: 'Tamil Nadu, India',
+    language: ['Tamil', 'English'],
     reachEstimate: 1800000,
     postsPerWeek: 15,
     avgShares: 12000,
@@ -232,7 +232,7 @@ const influencers: Influencer[] = [
     category: 'activist',
     verified: true,
     location: 'India',
-    language: ['English', 'Hindi', 'Malayalam'],
+    language: ['English', 'Hindi', 'Tamil'],
     reachEstimate: 1200000,
     postsPerWeek: 22,
     avgShares: 8500,
@@ -279,9 +279,9 @@ const mockInfluencerPosts: InfluencerPost[] = [
   {
     id: '1',
     influencerId: '1',
-    influencerName: 'Pinarayi Vijayan',
+    influencerName: 'M.K. Stalin',
     platform: 'Twitter/X',
-    content: 'Kerala Budget 2026 prioritizes sustainable development while ensuring social justice. Our commitment to education and healthcare remains unwavering. Together, we build a better tomorrow. #KeralaBudget2026 #Development',
+    content: 'Tamil Nadu Budget 2026 prioritizes sustainable development while ensuring social justice. Our commitment to education and healthcare remains unwavering. Together, we build a better tomorrow. #TNBudget2026 #Development',
     timestamp: new Date(Date.now() - 1800000), // 30 minutes ago
     engagement: {
       likes: 28000,
@@ -293,8 +293,8 @@ const mockInfluencerPosts: InfluencerPost[] = [
     sentiment: 'positive',
     sentimentScore: 0.78,
     topics: ['Budget', 'Development', 'Education', 'Healthcare'],
-    mentions: ['Kerala Government', 'Citizens'],
-    hashtags: ['#KeralaBudget2026', '#Development'],
+    mentions: ['Tamil Nadu Government', 'Citizens'],
+    hashtags: ['#TNBudget2026', '#Development'],
     mediaType: 'text',
     isViral: true,
     influence: 92,
@@ -305,9 +305,9 @@ const mockInfluencerPosts: InfluencerPost[] = [
   {
     id: '2',
     influencerId: '3',
-    influencerName: 'Priya Prakash Varrier',
+    influencerName: 'Sivakarthikeyan',
     platform: 'Instagram',
-    content: 'Young voices matter in shaping our future! Excited to see more youth engagement in important discussions about our state\'s progress. Every opinion counts! ✨ #YouthVoice #Kerala',
+    content: 'Young voices matter in shaping our future! Excited to see more youth engagement in important discussions about our state\'s progress. Every opinion counts! ✨ #YouthVoice #TamilNadu',
     timestamp: new Date(Date.now() - 7200000), // 2 hours ago
     engagement: {
       likes: 89000,
@@ -319,8 +319,8 @@ const mockInfluencerPosts: InfluencerPost[] = [
     sentiment: 'positive',
     sentimentScore: 0.85,
     topics: ['Youth', 'Engagement', 'Future', 'Progress'],
-    mentions: ['Young People', 'Kerala'],
-    hashtags: ['#YouthVoice', '#Kerala'],
+    mentions: ['Young People', 'Tamil Nadu'],
+    hashtags: ['#YouthVoice', '#TamilNadu'],
     mediaType: 'video',
     isViral: true,
     influence: 88,
@@ -1180,8 +1180,8 @@ export default function InfluencerTracking() {
                     </h4>
                   </div>
                   <p className="text-responsive-xs text-gray-700">
-                    Regional influencers gaining 25% more traction than national ones. 
-                    Malayalam content outperforming English by 30% in local engagement.
+                    Regional influencers gaining 25% more traction than national ones.
+                    Tamil content outperforming English by 30% in local engagement.
                   </p>
                 </div>
 

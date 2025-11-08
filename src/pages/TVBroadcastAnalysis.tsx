@@ -90,47 +90,47 @@ interface ShowAnalytics {
 
 const tvChannels: TVChannel[] = [
   {
-    id: 'asianet-news',
-    name: 'Asianet News',
+    id: 'puthiya-thalaimurai',
+    name: 'Puthiya Thalaimurai',
     logo: '📺',
-    language: 'Malayalam',
+    language: 'Tamil',
     type: 'news',
     viewership: 2800000,
     credibilityScore: 85,
     isLive: true,
     currentShow: 'News @ 9',
     bias: 'center',
-    region: 'Kerala',
+    region: 'Tamil Nadu',
     primeTimeStart: '19:00',
     primeTimeEnd: '23:00'
   },
   {
-    id: 'manorama-news',
-    name: 'Manorama News',
+    id: 'news7-tamil',
+    name: 'News7 Tamil',
     logo: '🔴',
-    language: 'Malayalam',
+    language: 'Tamil',
     type: 'news',
     viewership: 3200000,
     credibilityScore: 88,
     isLive: true,
     currentShow: 'Prime Time',
     bias: 'center',
-    region: 'Kerala',
+    region: 'Tamil Nadu',
     primeTimeStart: '18:30',
     primeTimeEnd: '22:30'
   },
   {
-    id: 'mathrubhumi-news',
-    name: 'Mathrubhumi News',
+    id: 'thanthi-tv',
+    name: 'Thanthi TV',
     logo: '📰',
-    language: 'Malayalam',
+    language: 'Tamil',
     type: 'news',
     viewership: 2600000,
     credibilityScore: 86,
     isLive: true,
     currentShow: 'Evening Bulletin',
     bias: 'center',
-    region: 'Kerala',
+    region: 'Tamil Nadu',
     primeTimeStart: '19:00',
     primeTimeEnd: '22:00'
   },
@@ -180,32 +180,32 @@ const tvChannels: TVChannel[] = [
     primeTimeEnd: '23:00'
   },
   {
-    id: 'tv9-kerala',
-    name: 'TV9 Kerala',
+    id: 'polimer-news',
+    name: 'Polimer News',
     logo: '9️⃣',
-    language: 'Malayalam',
+    language: 'Tamil',
     type: 'news',
     viewership: 1900000,
     credibilityScore: 81,
     isLive: true,
-    currentShow: 'Kerala Roundup',
+    currentShow: 'Tamil Nadu Roundup',
     bias: 'center',
-    region: 'Kerala',
+    region: 'Tamil Nadu',
     primeTimeStart: '20:00',
     primeTimeEnd: '22:00'
   },
   {
-    id: 'news18-kerala',
-    name: 'News18 Kerala',
+    id: 'news18-tamilnadu',
+    name: 'News18 Tamil Nadu',
     logo: '📻',
-    language: 'Malayalam',
+    language: 'Tamil',
     type: 'news',
     viewership: 1600000,
     credibilityScore: 79,
     isLive: true,
     currentShow: 'State Focus',
     bias: 'center',
-    region: 'Kerala',
+    region: 'Tamil Nadu',
     primeTimeStart: '19:30',
     primeTimeEnd: '21:30'
   }
@@ -214,12 +214,12 @@ const tvChannels: TVChannel[] = [
 const mockBroadcastSegments: BroadcastSegment[] = [
   {
     id: '1',
-    channel: 'Manorama News',
+    channel: 'News7 Tamil',
     showName: 'Prime Time',
     segment: 'Budget Analysis',
     timestamp: new Date(Date.now() - 900000), // 15 minutes ago
     duration: 420, // 7 minutes
-    topic: 'Kerala Budget 2026',
+    topic: 'Tamil Nadu Budget 2026',
     sentiment: 'positive',
     sentimentScore: 0.68,
     mentions: ['Chief Minister', 'Finance Minister', 'Opposition'],
@@ -229,11 +229,11 @@ const mockBroadcastSegments: BroadcastSegment[] = [
     clipUrl: '#',
     isLive: false,
     priority: 'high',
-    anchor: 'Ajith Prabhakar'
+    anchor: 'Kiruba Shankar'
   },
   {
     id: '2',
-    channel: 'Asianet News',
+    channel: 'Puthiya Thalaimurai',
     showName: 'News @ 9',
     segment: 'Political Roundtable',
     timestamp: new Date(Date.now() - 1800000), // 30 minutes ago
@@ -248,7 +248,7 @@ const mockBroadcastSegments: BroadcastSegment[] = [
     clipUrl: '#',
     isLive: false,
     priority: 'high',
-    anchor: 'Sindhu Sooryakumar'
+    anchor: 'Rangaraj Pandey'
   },
   {
     id: '3',
@@ -645,7 +645,7 @@ export default function TVBroadcastAnalysis() {
                         className="w-full p-2 border border-gray-300 rounded text-sm"
                       >
                         <option value="all">All Languages</option>
-                        <option value="Malayalam">Malayalam</option>
+                        <option value="Tamil">Tamil</option>
                         <option value="English">English</option>
                         <option value="Hindi">Hindi</option>
                       </select>
@@ -791,7 +791,7 @@ export default function TVBroadcastAnalysis() {
                 </h3>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-700">Malayalam</span>
+                    <span className="text-xs text-gray-700">Tamil</span>
                     <div className="flex items-center space-x-2">
                       <div className="w-20 bg-gray-200 rounded-full h-2">
                         <div className="bg-green-600 h-2 rounded-full" style={{ width: '50%' }} />
@@ -853,8 +853,8 @@ export default function TVBroadcastAnalysis() {
                     </h4>
                   </div>
                   <p className="text-responsive-xs text-gray-700">
-                    Budget analysis segments are generating 40% higher engagement than average, 
-                    with positive sentiment across Malayalam and English channels.
+                    Budget analysis segments are generating 40% higher engagement than average,
+                    with positive sentiment across Tamil and English channels.
                   </p>
                 </div>
 

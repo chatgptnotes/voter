@@ -6,7 +6,7 @@ import CompetitorComparison from '../components/CompetitorComparison'
 import SentimentHeatmap from '../components/SentimentHeatmap'
 import InfluencerTracking from '../components/InfluencerTracking'
 import AlertsPanel from '../components/AlertsPanel'
-import IndiaMap from '../components/IndiaMap'
+import TamilNaduMap from '../components/maps/TamilNaduMap'
 import ExportManager from '../components/ExportManager'
 import AdvancedChart from '../components/AdvancedChart'
 import { MobileNavigation, ResponsiveContainer, MobileCard, ResponsiveGrid, MobileButton, MobileStats } from '../components/MobileResponsive'
@@ -177,18 +177,14 @@ export default function Dashboard() {
     { id: 'TN-Tirunelveli', title: 'Tirunelveli', value: 56, sentiment: 0.56, constituencies: 6 },
     { id: 'TN-Tiruppur', title: 'Tiruppur', value: 69, sentiment: 0.69, constituencies: 6 },
     { id: 'TN-Erode', title: 'Erode', value: 63, sentiment: 0.63, constituencies: 6 },
-    { id: 'IN-GJ', title: 'Gujarat', value: 71, sentiment: 0.71 },
-    { id: 'IN-AP', title: 'Andhra Pradesh', value: 63, sentiment: 0.63 },
-    { id: 'IN-OR', title: 'Odisha', value: 56, sentiment: 0.56 },
-    { id: 'IN-TG', title: 'Telangana', value: 67, sentiment: 0.67 },
-    { id: 'IN-KL', title: 'Kerala', value: 78, sentiment: 0.78 },
-    { id: 'IN-JH', title: 'Jharkhand', value: 49, sentiment: 0.49 },
-    { id: 'IN-AS', title: 'Assam', value: 54, sentiment: 0.54 },
-    { id: 'IN-PB', title: 'Punjab', value: 65, sentiment: 0.65 },
-    { id: 'IN-CT', title: 'Chhattisgarh', value: 51, sentiment: 0.51 },
-    { id: 'IN-HR', title: 'Haryana', value: 66, sentiment: 0.66 },
-    { id: 'IN-DL', title: 'Delhi', value: 73, sentiment: 0.73 },
-    { id: 'IN-HP', title: 'Himachal Pradesh', value: 62, sentiment: 0.62 }
+    { id: 'TN-Vellore', title: 'Vellore', value: 64, sentiment: 0.64, constituencies: 5 },
+    { id: 'TN-Thanjavur', title: 'Thanjavur', value: 60, sentiment: 0.60, constituencies: 5 },
+    { id: 'TN-Kanchipuram', title: 'Kanchipuram', value: 67, sentiment: 0.67, constituencies: 7 },
+    { id: 'TN-Cuddalore', title: 'Cuddalore', value: 61, sentiment: 0.61, constituencies: 4 },
+    { id: 'TN-Dindigul', title: 'Dindigul', value: 59, sentiment: 0.59, constituencies: 5 },
+    { id: 'TN-Karur', title: 'Karur', value: 66, sentiment: 0.66, constituencies: 3 },
+    { id: 'TN-Namakkal', title: 'Namakkal', value: 68, sentiment: 0.68, constituencies: 4 },
+    { id: 'TN-Puducherry', title: 'Puducherry', value: 64, sentiment: 0.64, constituencies: 30 }
   ]
 
   return (
@@ -389,7 +385,7 @@ export default function Dashboard() {
           )}
           
           <div className="w-full">
-            <IndiaMap data={tamilNaduMapData} height={400} />
+            <TamilNaduMap data={tamilNaduMapData} height={400} />
           </div>
 
           <ResponsiveGrid cols={{ sm: 1, lg: 2, xl: 3 }}>
